@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'eUkraineLight';
+    src: url(../fonts/e-ukraine-light_w) format('truetype');
+    font-style: normal;
+}
+@font-face {
+    font-family: 'eUkraineBold';
+    src: url(../fonts/e-ukraine-bold_w) format('truetype');
+    font-style: normal;
+}
+@font-face {
+    font-family: 'eUkraineMedium';
+    src: url(../fonts/e-ukrainehead-medium_w) format('truetype');
+    font-style: normal;
+}
+
+div{
+    margin: 0px;
+}
+body{
+    margin: 0px;
+}
+p{
+    margin: 0px;
+}
+
+.fontHeader{
+    font-family: 'eUkraineLight', sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.fontLogoHeader{
+    font-family: 'eUkraineBold', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.headerNavStyle{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 38px;
+}
+
+.headerNavStyle p{
+    margin-right: 52px;
+}
+.headerNavStyle p:first-child{
+    margin-right: 8px;
+}
+
+.headerLogoStyle{
+    padding: 6px 13px;
+    border-radius: 16px;
+    color: white;
+    background-color: black;
+}
+.headerLogoFix{
+    margin-right: 190px;
+}
+
+.headerButtonStyle{
+    margin-left: 190px;
+    padding: 6px 34px;
+    border-radius: 26px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+
+
+.bodyHeaderStyle{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 248px;
+}
+.bodyHeaderTextStyle{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 248px;
+}
+.bodyHeaderStyle > *{
+    margin-top: 36px;
+}
+.bodyHeaderText{
+    font-family: 'eUkraineMedium', sans-serif;
+    font-size: 128px;
+    font-weight: normal;
+    margin-top: 0px;
+    flex-wrap: nowrap;
+}
+.bodyText{
+    font-family: 'eUkraineLight', sans-serif;
+    font-size: 32px;
+    font-weight: normal;
+    text-align: center;
+}
+.bodyButtonStyle{
+    padding: 20px 64px;
+    border-radius: 36px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    margin-top: 62px;
+}
