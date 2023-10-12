@@ -1,13 +1,27 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* font-family: "DiaFontBold"; */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: "DiaFontBold";
+  src:
+    local("DiaFontBold"),
+    url("./fonts/e-Ukraine-Bold.otf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+  font-family: "DiaFontLight";
+  src:
+    local("DiaFontLight"),
+    url("./fonts/e-Ukraine-Light.otf") format("truetype");
+    /* font-weight: bold; */
+}
+
+@font-face {
+  font-family: "DiaFontRegular";
+  src:
+    local("DiaFontRegular"),
+    url("./fonts/e-Ukraine-Regular.otf") format("truetype");
+    /* font-weight: bold; */
 }
