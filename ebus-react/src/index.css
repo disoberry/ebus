@@ -25,3 +25,11 @@ body {
     url("./fonts/e-Ukraine-Regular.otf") format("truetype");
     /* font-weight: bold; */
 }
+
+@font-face {
+  font-family: "DiaFontLight+";
+  src:
+    local("DiaFontRegular"),
+    url("./fonts/e-Ukraine-UltraLight.otf") format("truetype");
+    /* font-weight: bold; */
+}
