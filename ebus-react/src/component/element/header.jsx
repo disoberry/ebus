@@ -19,11 +19,13 @@ export default function Header() {
       </div>
       <Navbar.Collapse className="" id="responsive-navbar-nav">
         <Nav className="me-auto items-bar">
-          <Link to={"/buses-table"}>Табло Автобусів</Link>
-          <Link to={"/"}>Маршрути</Link>
-          <Link to={"/"}>Розташування</Link>
-          <Link to={"/"}>Контакти</Link>
-          <Btn>Кабінет</Btn>
+          <Link className="item-link" to={"/buses-table"}>Табло Автобусів</Link>
+          <Link className="item-link" to={"/"}>Маршрути</Link>
+          <Link className="item-link" to={"/"}>Розташування</Link>
+          <Link className="item-link" to={"/"}>Про нас</Link>
+          <Link to={"/sign-in"}>
+            <Btn>Увійти</Btn>
+          </Link>
         </Nav>
       </Navbar.Collapse>
     </Block>
@@ -99,7 +101,7 @@ const Block = styled(Navbar)`
     }
   }
   .items-bar {
-    a {
+    .item-link {
       text-decoration: none;
       padding: 0.5em 0;
       margin: 0 1em;
@@ -119,7 +121,7 @@ const Block = styled(Navbar)`
       display: flex;
       justify-content: flex-end;
       align-items: end;
-      a {
+      .item-link {
         width: calc(25%-1em);
         margin: 0 1.5em;
       }
@@ -128,7 +130,7 @@ const Block = styled(Navbar)`
       /* width: 90vw; */
       box-shadow: 0 2px 2px -1px lightgray;
       padding-bottom: 1em;
-      a {
+      .item-link {
         width: calc(25% - 1em);
         margin-bottom: 0.5em;
       }
