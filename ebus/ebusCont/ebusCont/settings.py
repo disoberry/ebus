@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authCont.apps.AuthcontConfig',
     'busCont.apps.BuscontConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

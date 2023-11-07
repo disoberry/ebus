@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from .models import BusTableM
+from .serializers import LeadSerializer
+from rest_framework import generics
 
-# Create your views here.
+
+
+class LeadListCreate(generics.ListCreateAPIView):
+    queryset = BusTableM.objects.all()
+    serializer_class = LeadSerializer

@@ -1,5 +1,5 @@
 from django.db import models
-from ..authCont.models import CustomUserM
+# from ..authCont import CustomUserM
 
 class BusTableM(models.Model):
     price = models.IntegerField()
@@ -34,8 +34,11 @@ class BusTableM(models.Model):
 
     routeSchedule = models.TextField(choices=ROUTE_SCHEDULE_STAMPS, default="c12")
 
-class OrderM(models.Model):
-    relo = models.ForeignKey('CustomUserM',
-                             related_name='orderQ',
-                             on_delete=models.CASCADE)
-    orderStatus = models.BooleanField(default=False)
+
+
+
+# class OrderM(models.Model):
+#     relo = models.ForeignKey('CustomUserM',
+#                              related_name='orderQ',
+#                              on_delete=models.CASCADE)
+#     orderStatus = models.BooleanField(default=False)
