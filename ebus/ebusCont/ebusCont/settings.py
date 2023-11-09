@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'authCont.apps.AuthcontConfig',
     'busCont.apps.BuscontConfig',
     'rest_framework',
-    'ebusreact.apps.EbusreactConfig',
+
 ]
 
 MIDDLEWARE = [
