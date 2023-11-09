@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "DiaFontBold";
+  src:
+    local("DiaFontBold"),
+    url("./fonts/e-Ukraine-Bold.otf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+  font-family: "DiaFontLight";
+  src:
+    local("DiaFontLight"),
+    url("./fonts/e-Ukraine-Light.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "DiaFontRegular";
+  src:
+    local("DiaFontRegular"),
+    url("./fonts/e-Ukraine-Regular.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "DiaFontLight+";
+  src:
+    local("DiaFontRegular"),
+    url("./fonts/e-Ukraine-UltraLight.otf") format("truetype");
+}
