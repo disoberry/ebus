@@ -47,7 +47,7 @@ export default function BusesTable() {
     <div>
       <TopBlock className="w-100 d-flex align-items-center justify-content-center">
         <div className="w-75 row d-flex align-items-center justify-content-center">
-          <InputSpan className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-9 d-flex align-items-center justify-content-between">
+          <InputSpan className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-12 d-flex align-items-center justify-content-between">
             <i className="fa-solid fa-location-dot"></i>
             <input
               placeholder="Звідки"

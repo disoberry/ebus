@@ -9,7 +9,9 @@ export default function Header() {
     <Block collapseOnSelect expand="lg">
       <div className="d-flex align-items-center justify-content-between">
         <Navbar.Brand>
-          <img src={logo} alt="logo" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <span></span>
@@ -19,10 +21,18 @@ export default function Header() {
       </div>
       <Navbar.Collapse className="" id="responsive-navbar-nav">
         <Nav className="me-auto items-bar">
-          <Link className="item-link" to={"/buses-table"}>Табло Автобусів</Link>
-          <Link className="item-link" to={"/"}>Маршрути</Link>
-          <Link className="item-link" to={"/"}>Розташування</Link>
-          <Link className="item-link" to={"/"}>Про нас</Link>
+          <Link className="item-link" to={"/buses-table"}>
+            Табло Автобусів
+          </Link>
+          <Link className="item-link" to={"/"}>
+            Маршрути
+          </Link>
+          <Link className="item-link" to={"/"}>
+            Розташування
+          </Link>
+          <Link className="item-link" to={"/"}>
+            Про нас
+          </Link>
           <Link to={"/sign-in"}>
             <Btn>Увійти</Btn>
           </Link>
