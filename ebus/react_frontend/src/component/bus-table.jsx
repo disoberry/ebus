@@ -125,12 +125,12 @@ export default function BusesTable() {
               </span>
             </InfoSpan>
             <InfoSpan className="d-flex justify-content-between align-items-start">
-              <i class="fa-regular fa-clock"></i>
+              <i className="fa-regular fa-clock"></i>
               <span>
                 <h3>Графік роботи:</h3>
                 <span>
                   {days.map((item) => (
-                    <p className="row w-100 justify-content-between">
+                    <p key={item} className="row w-100 justify-content-between">
                       <span className="col m-0 p-0">{item}</span>
                       <span className="col m-0 p-0">05:30 - 23:00</span>
                     </p>
@@ -156,10 +156,10 @@ export default function BusesTable() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1751.1441886196797!2d26.281215256907597!3d50.61494926930282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472f132956986b91%3A0xd7533fea51251354!2z0JDQstGC0L7QstC-0LrQt9Cw0Lsg0KDRltCy0L3QtSAo0YbQtdC90YLRgNCw0LvRjNC90LjQuSk!5e0!3m2!1suk!2sua!4v1697799492509!5m2!1suk!2sua"
               width="100%"
               height="100%"
-              allowfullscreen=""
+              allowFullScreen=""
               loading="lazy"
               title="map"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
         </div>

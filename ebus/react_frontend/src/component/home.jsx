@@ -4,9 +4,7 @@ import { MainButton } from "./element/header";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  fetch('http://127.0.0.1:8000/ebuscont/api/')
-        .then(response => response.json())
-        .then(data => console.log(data));
+  
   return (
     <Block
       id="block"

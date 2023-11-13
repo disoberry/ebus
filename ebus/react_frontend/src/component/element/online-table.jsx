@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { darkGreen, mainGreen } from "./utills";
+import { useEffect, useState } from "react";
 
 const data = [
   {
@@ -32,14 +33,28 @@ const data = [
 ];
 
 export default function OnlineTable() {
+  const [listBuses, setList] = useState([]);
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/ebuscont/api/")
+      .then((response) => response.json())
+      .then((data) => setList(data));
+  }, []);
+
+  function getTime(date) {
+    let mydate = new Date(date);
+    return `${("0" + mydate.getUTCHours()).slice(-2)} : 
+    ${("0" + mydate.getUTCMinutes()).slice(-2)} : 
+    ${("0" + mydate.getUTCSeconds()).slice(-2)}`;
+  }
+
   function checkingColor(status) {
-    if (status === "Відбув") {
+    if (status === false) {
       return "#5E5E5E";
     }
     if (status === "Очікується") {
       return "#000";
     }
-    if (status === "Прибув") {
+    if (status === true) {
       return "#169A43";
     }
   }
@@ -61,7 +76,7 @@ export default function OnlineTable() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {/* {data.map((item) => (
               <tr
                 key={item.id}
                 style={{
@@ -85,6 +100,38 @@ export default function OnlineTable() {
                     style={{
                       backgroundColor:
                         item.id % 2 === 0 ? darkGreen : mainGreen,
+                    }}
+                  >
+                    Знайти квиток
+                  </button>
+                </td>
+              </tr>
+            ))} */}
+            {listBuses.map((item) => (
+              <tr
+                key={item.raceNum}
+                style={{
+                  "--bs-table-bg":
+                    item.raceNum % 2 === 0 ? "#F1F1F1" : "#E4E4E4",
+                }}
+              >
+                <td>{getTime(item.fromWhen)}</td>
+                <td>{`${item.fromWhere} – ${item.toWhere}`}</td>
+                <td>{getTime(item.toWhen)}</td>
+                <td>{item.platform}</td>
+                <td
+                  style={{
+                    color: checkingColor(item.status),
+                    fontWeight: item.status === true ? "bold" : "",
+                  }}
+                >
+                  {item.status ? "Прибув" : "Відбув"}
+                </td>
+                <td>
+                  <button
+                    style={{
+                      backgroundColor:
+                        item.raceNum % 2 === 0 ? darkGreen : mainGreen,
                     }}
                   >
                     Знайти квиток
