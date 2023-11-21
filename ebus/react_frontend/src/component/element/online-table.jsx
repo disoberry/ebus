@@ -109,10 +109,10 @@ export default function OnlineTable() {
             ))} */}
             {listBuses.map((item) => (
               <tr
-                key={item.raceNum}
+                key={item.id}
                 style={{
                   "--bs-table-bg":
-                    item.raceNum % 2 === 0 ? "#F1F1F1" : "#E4E4E4",
+                    item.id % 2 === 0 ? "#F1F1F1" : "#E4E4E4",
                 }}
               >
                 <td>{getTime(item.fromWhen)}</td>
@@ -131,7 +131,7 @@ export default function OnlineTable() {
                   <button
                     style={{
                       backgroundColor:
-                        item.raceNum % 2 === 0 ? darkGreen : mainGreen,
+                        item.id % 2 === 0 ? darkGreen : mainGreen,
                     }}
                   >
                     Знайти квиток

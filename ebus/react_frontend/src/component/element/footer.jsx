@@ -1,6 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { darkGreen, darkGrey, lightGreen, mainGreen } from "./utills";
+import {
+  backgroundGrey,
+  darkGreen,
+  darkGrey,
+  lightGreen,
+  lightGrey,
+  mainGreen,
+} from "./utills";
 import { useLocation } from "react-router-dom";
 
 function getDate() {
@@ -16,7 +23,8 @@ export default function Footer() {
   const router = useLocation();
   return (
     <FooterBlock>
-      {router.pathname.includes("buses-table") ? (
+      {router.pathname.includes("buses-table") ||
+      router.pathname.includes("routes") ? (
         <>
           <div className="row w-100 m-0 mainBlock justify-content-center">
             <div className="col-xl-4 col-lg-4 col-12 my-2">
@@ -36,9 +44,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div
-            className="bottomBlock"
-          >
+          <div className="bottomBlock">
             © <b>{currentDate}</b>, єАвтобус — онлайн сервіс з продажу квитків.
             Всі права захищені.
           </div>
@@ -59,9 +65,9 @@ const FooterBlock = styled.div`
       p:hover,
       h5:hover {
         cursor: pointer;
-        color: #0e8136;
+        color: #000;
       }
-      color: ${darkGreen};
+      color: ${darkGrey};
       p {
         font-size: 1em;
         margin: 0.5em 0;
@@ -73,11 +79,11 @@ const FooterBlock = styled.div`
     }
   }
   div {
-    background-color: ${lightGreen};
+    background-color: #fff;
   }
   .bottomBlock {
     padding: 1.5em 3em;
-    background-color: #aadda0;
-    color: #fff;
+    background-color: ${backgroundGrey};
+    color: #000;
   }
 `;
