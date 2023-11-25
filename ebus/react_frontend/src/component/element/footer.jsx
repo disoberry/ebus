@@ -26,7 +26,7 @@ export default function Footer() {
       {router.pathname.includes("buses-table") ||
       router.pathname.includes("routes") ? (
         <>
-          <div className="row w-100 m-0 mainBlock justify-content-center">
+          <div className="mt-2 row w-100 m-0 mainBlock justify-content-center" style={{boxShadow: `0px 0px 3px 2px ${lightGreen}`}}>
             <div className="col-xl-4 col-lg-4 col-12 my-2">
               <h5>Про компанію</h5>
               <p>Про нас</p>

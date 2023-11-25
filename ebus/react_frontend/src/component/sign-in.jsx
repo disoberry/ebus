@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {
+  MainButton,
   backgroundGrey,
   darkGreen,
   darkGrey,
@@ -107,18 +108,7 @@ export const SignBlock = styled.div`
       }
     }
     button {
-      width: 50%;
-      margin: 0.7em;
-      border-radius: 2.5em;
-      padding: 0.6em;
-      background-color: ${mainGreen};
-      color: #fff;
-      border: 1px solid ${mainGreen};
-      &:hover {
-        background-color: ${lightGreen};
-        /* border: 1px solid ${darkGreen}; */
-        color: #000;
-      }
+      ${MainButton}
       width: 50%;
     }
   }

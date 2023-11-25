@@ -2,7 +2,7 @@ import { Accordion } from "react-bootstrap";
 import styled from "styled-components";
 import background from "../images/green-line.png";
 import down_arrow_green from "../images/down-arrow-green.png";
-import { darkGreen, lightGreen, mainGreen } from "./element/utills";
+import { darkGreen, darkGrey, lightGreen, lightGrey, mainGreen } from "./element/utills";
 export default function RoutesPage() {
   return (
     <MainBlock className="d-flex flex-column align-items-center">
@@ -14,7 +14,7 @@ export default function RoutesPage() {
         <Accordion.Item eventKey="0">
           <Accordion.Header>Accordion Item #1</Accordion.Header>
           <Accordion.Body>
-            <div className="row d-flex align-items-center justify-content-lg-between justify-content-center">
+            <div className="row d-flex align-items-center justify-content-lg-between justify-content-center pb-2">
               <DaysBlock className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 d-flex justify-content-lg-start justify-content-md-start justify-content-sm-start justify-content-center">
                 <button>Пн</button>
                 <button>Вт</button>
@@ -26,25 +26,55 @@ export default function RoutesPage() {
                 Вартість: <p>75 UAH</p>
               </CostBlock>
             </div>
-            <div className="row d-flex align-items-center justify-content-lg-between justify-content-center">
-              <div className="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-10 d-flex align-items-center">
-                <div className="row d-flex align-items-center justify-content-lg-between justify-content-center">
-                  <p className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 mb-0">
-                    2 Рейс: 15:00 - 21:15
-                  </p>
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 ">
-                    <button>Замовити</button>
-                  </div>
+            <div className="row d-flex align-items-center justify-content-lg-between justify-content-md-between justify-content-sm-center justify-content-center">
+              <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
+                <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
+                  <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
+                    <span className="d-flex  justify-content-xl-between justify-content-lg-between justify-content-sm-center m-0 text-xl-start text-lg-start text-md-start text-sm-center text-center">
+                      2 Рейс:
+                      <p
+                        className="m-0 pb-0"
+                        style={{
+                          fontFamily: "DiaFontBold",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        15:00 - 21:15
+                      </p>
+                    </span>
+                  </span>
+                  <span className="col-xl-4 col-lg-5 col-md-5 col-sm-7 col-7 d-flex m-0 p-0 justify-content-sm-center">
+                    <OrderBtn
+                      className="w-100 mx-lg-2 mx-md-2" 
+                    >
+                      Замовити
+                    </OrderBtn>
+                  </span>
                 </div>
               </div>
-              <div className="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-10 d-flex align-items-center">
-                <div className="row d-flex align-items-center justify-content-lg-between justify-content-center">
-                  <p className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 mb-0">
-                    2 Рейс: 15:00 - 21:15
-                  </p>
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 ">
-                    <button>Замовити</button>
-                  </div>
+              <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
+                <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
+                  <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
+                    <span className="d-flex  justify-content-xl-between justify-content-lg-between justify-content-sm-center m-0 text-xl-start text-lg-start text-md-start text-sm-center text-center">
+                      2 Рейс:
+                      <p
+                        className="m-0 pb-0"
+                        style={{
+                          fontFamily: "DiaFontBold",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        15:00 - 21:15
+                      </p>
+                    </span>
+                  </span>
+                  <span className="col-xl-4 col-lg-5 col-md-5 col-sm-7 col-7 d-flex m-0 p-0 justify-content-sm-center">
+                    <OrderBtn
+                      className="w-100 mx-lg-2 mx-md-2" 
+                    >
+                      Замовити
+                    </OrderBtn>
+                  </span>
                 </div>
               </div>
             </div>
@@ -53,13 +83,70 @@ export default function RoutesPage() {
         <Accordion.Item eventKey="1">
           <Accordion.Header>Accordion Item #2</Accordion.Header>
           <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            <div className="row d-flex align-items-center justify-content-lg-between justify-content-center pb-2">
+              <DaysBlock className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 d-flex justify-content-lg-start justify-content-md-start justify-content-sm-start justify-content-center">
+                <button>Пн</button>
+                <button>Вт</button>
+                <button>Ср</button>
+                <button>Чт</button>
+                <button>Пт</button>
+              </DaysBlock>
+              <CostBlock className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-10 d-flex justify-content-lg-end justify-content-md-end justify-content-sm-end justify-content-center">
+                Вартість: <p>75 UAH</p>
+              </CostBlock>
+            </div>
+            <div className="row d-flex align-items-center justify-content-lg-between justify-content-md-between justify-content-sm-center justify-content-center">
+              <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
+                <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
+                  <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
+                    <span className="d-flex  justify-content-xl-between justify-content-lg-between justify-content-sm-center m-0 text-xl-start text-lg-start text-md-start text-sm-center text-center">
+                      2 Рейс:
+                      <p
+                        className="m-0 pb-0"
+                        style={{
+                          fontFamily: "DiaFontBold",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        15:00 - 21:15
+                      </p>
+                    </span>
+                  </span>
+                  <span className="col-xl-4 col-lg-5 col-md-5 col-sm-7 col-7 d-flex m-0 p-0 justify-content-sm-center">
+                    <OrderBtn
+                      className="w-100 mx-lg-2 mx-md-2" 
+                    >
+                      Замовити
+                    </OrderBtn>
+                  </span>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
+                <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
+                  <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
+                    <span className="d-flex  justify-content-xl-between justify-content-lg-between justify-content-sm-center m-0 text-xl-start text-lg-start text-md-start text-sm-center text-center">
+                      2 Рейс:
+                      <p
+                        className="m-0 pb-0"
+                        style={{
+                          fontFamily: "DiaFontBold",
+                          paddingLeft: "15px",
+                        }}
+                      >
+                        15:00 - 21:15
+                      </p>
+                    </span>
+                  </span>
+                  <span className="col-xl-4 col-lg-5 col-md-5 col-sm-7 col-7 d-flex m-0 p-0 justify-content-sm-center">
+                    <OrderBtn
+                      className="w-100 mx-lg-2 mx-md-2" 
+                    >
+                      Замовити
+                    </OrderBtn>
+                  </span>
+                </div>
+              </div>
+            </div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
@@ -103,6 +190,7 @@ const DaysBlock = styled.span`
 
 const MainBlock = styled.div`
   font-family: "DiaFontLight";
+  min-height: 54.2vh;
   .accordion {
     width: 85%;
     .accordion-item {
@@ -180,3 +268,14 @@ const Title = styled.div`
     }
   }
 `;
+
+const OrderBtn = styled.button`
+   background-color: ${mainGreen};
+   color: #fff;
+   border-radius: 1em;
+   padding: 0.2em 1.2em;
+   border: 1px solid ${darkGrey};
+   &:hover {
+    background-color: ${darkGrey};
+   } 
+`
