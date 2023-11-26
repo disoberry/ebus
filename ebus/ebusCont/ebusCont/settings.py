@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authCont.apps.AuthcontConfig',
     'busCont.apps.BuscontConfig',
     'rest_framework',
 
@@ -53,6 +54,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ebusCont.urls'
+
+AUTH_USER_MODEL = 'authCont.CustomUserM'
 
 TEMPLATES = [
     {
