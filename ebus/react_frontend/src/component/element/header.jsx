@@ -20,7 +20,7 @@ export default function Header() {
       <Navbar.Collapse className="" id="responsive-navbar-nav">
         <Nav className="me-auto items-bar">
           <Link className="item-link" to={"/buses-table"}>Табло Автобусів</Link>
-          <Link className="item-link" to={"/"}>Маршрути</Link>
+          <Link className="item-link" to={"/routes"}>Маршрути</Link>
           <Link className="item-link" to={"/"}>Розташування</Link>
           <Link className="item-link" to={"/"}>Про нас</Link>
           <Link to={"/sign-in"}>
