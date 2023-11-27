@@ -1,6 +1,5 @@
 from django.db import models
-# from ..authCont import CustomUserM
-
+from authCont.models import CustomUserM
 class BusTableM(models.Model):
     price = models.IntegerField()
     raceNum = models.IntegerField()
@@ -12,6 +11,8 @@ class BusTableM(models.Model):
     status = models.BooleanField()
     fromWhen = models.DateTimeField()
     toWhen = models.DateTimeField()
+
+    bus_name = models.TextField(max_length=255, null=False)
 
     ch8 = "8:00"
     ch9 = "9:00"
@@ -35,10 +36,7 @@ class BusTableM(models.Model):
     routeSchedule = models.TextField(choices=ROUTE_SCHEDULE_STAMPS, default="c12")
 
 
-
-
-# class OrderM(models.Model):
-#     relo = models.ForeignKey('CustomUserM',
-#                              related_name='orderQ',
-#                              on_delete=models.CASCADE)
-#     orderStatus = models.BooleanField(default=False)
+class Ticket(models.Model):
+    seat_number = models.IntegerField(null=False)
+    bus_name_ticket = models.ForeignKey(BusTableM, on_delete=models.CASCADE)
+    ticket_owner = models.ForeignKey(CustomUserM, on_delete=models.CASCADE)
