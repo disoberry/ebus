@@ -33,19 +33,36 @@ const data = [
 ];
 
 export default function OnlineTable() {
-  const [listBuses, setList] = useState([]);
+  const [listRacesBus, setList] = useState([]);
+  const [listBus, setBusList] = useState([]);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/ebuscont/api/")
+    fetch("http://127.0.0.1:8000/ebuscont/api/triprace")
       .then((response) => response.json())
       .then((data) => setList(data));
+    fetch("http://127.0.0.1:8000/ebuscont/api/")
+      .then((response) => response.json())
+      .then((data) => setBusList(data));
   }, []);
 
-  function getTime(date) {
-    let mydate = new Date(date);
-    return `${("0" + mydate.getUTCHours()).slice(-2)} : 
-    ${("0" + mydate.getUTCMinutes()).slice(-2)} : 
-    ${("0" + mydate.getUTCSeconds()).slice(-2)}`;
+  function getBusById(bus_id) {
+    let bus = {};
+    // console.log(bus_id);
+    listBus.map((item) => {
+      if (item.id === bus_id) {
+        // console.log(item);
+        bus = item;
+      }
+    });
+    return bus;
   }
+
+  // function getTime(date) {
+  //   let mydate = new Date(date);
+  //   return `${("0" + mydate.getUTCHours()).slice(-2)} : 
+  //   ${("0" + mydate.getUTCMinutes()).slice(-2)} : 
+  //   ${("0" + mydate.getUTCSeconds()).slice(-2)}`;
+  // }
+  // console.log(listRacesBus);
 
   function checkingColor(status) {
     if (status === false) {
@@ -76,56 +93,26 @@ export default function OnlineTable() {
             </tr>
           </thead>
           <tbody>
-            {/* {data.map((item) => (
+            {listRacesBus.map((item) => (
               <tr
                 key={item.id}
                 style={{
                   "--bs-table-bg": item.id % 2 === 0 ? "#F1F1F1" : "#E4E4E4",
                 }}
               >
-                <td>{item.departureTime}</td>
-                <td>{`${item.from} – ${item.to}`}</td>
-                <td>{item.arrivalTime}</td>
-                <td>{item.platform}</td>
+                <td>{item.timeFrom}</td>
+                <td>{`${getBusById(item.bus_table).fromWhere} – ${
+                  getBusById(item.bus_table).toWhere
+                }`}</td>
+                <td>{item.timeTo}</td>
+                <td>{getBusById(item.bus_table).platform}</td>
                 <td
                   style={{
-                    color: checkingColor(item.status),
-                    fontWeight: item.status === "Прибув" ? "bold" : "",
+                    color: checkingColor(getBusById(item.bus_table).status),
+                    fontWeight: getBusById(item.bus_table).status === true ? "bold" : "",
                   }}
                 >
-                  {item.status}
-                </td>
-                <td>
-                  <button
-                    style={{
-                      backgroundColor:
-                        item.id % 2 === 0 ? darkGreen : mainGreen,
-                    }}
-                  >
-                    Знайти квиток
-                  </button>
-                </td>
-              </tr>
-            ))} */}
-            {listBuses.map((item) => (
-              <tr
-                key={item.id}
-                style={{
-                  "--bs-table-bg":
-                    item.id % 2 === 0 ? "#F1F1F1" : "#E4E4E4",
-                }}
-              >
-                <td>{getTime(item.fromWhen)}</td>
-                <td>{`${item.fromWhere} – ${item.toWhere}`}</td>
-                <td>{getTime(item.toWhen)}</td>
-                <td>{item.platform}</td>
-                <td
-                  style={{
-                    color: checkingColor(item.status),
-                    fontWeight: item.status === true ? "bold" : "",
-                  }}
-                >
-                  {item.status ? "Прибув" : "Відбув"}
+                  {getBusById(item.bus_table).status ? "Прибув" : "Відбув"}
                 </td>
                 <td>
                   <button

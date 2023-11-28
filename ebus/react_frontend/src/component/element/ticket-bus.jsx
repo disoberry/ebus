@@ -1,12 +1,20 @@
 import styled from "styled-components";
-import { lightGreen, mainGreen } from "./utills";
+import { darkGreen, lightGreen, mainGreen } from "./utills";
+import { useState } from "react";
 
-export default function TicketBus() {
+export default function TicketBus({ checkSeat }) {
   //   const arr = Array(59).fill("");
+  const [currentSeat, setSeat] = useState(0);
+  const checkCurrentSeat = (item) => {
+    console.log(item);
+    checkSeat(item);
+  };
   function setBusSeats(start, end) {
     const childen = [];
     for (let i = start; i <= end; i++) {
-      childen.push(<SeatElem key={i} id={i} />);
+      childen.push(
+        <SeatElem key={i} id={i} checkCurrentSeat={checkCurrentSeat} />
+      );
     }
     return childen;
   }
@@ -29,18 +37,25 @@ export default function TicketBus() {
   );
 }
 
-const SeatElem = ({ id }) => {
+const SeatElem = ({ id, checkCurrentSeat }) => {
   const handleFocus = (e) => {
     e.preventDefault();
     e.target.style.boxShadow = `0 0 2px 1px ${mainGreen}`;
+    e.target.style.backgroundColor = `${darkGreen}`;
+    e.target.style.borderColor = "transparent"
+    e.target.style.color = "#fff"
   };
   const handleBlur = (e) => {
     e.preventDefault();
     e.target.style.boxShadow = `none`;
+    e.target.style.backgroundColor = `transparent`;
+    e.target.style.borderColor = "#000"
+    e.target.style.color = "#000"
   };
   const handleClick = (e) => {
     e.preventDefault();
     console.log(e.target.textContent);
+    checkCurrentSeat(e.target.textContent);
   };
   return (
     <button
