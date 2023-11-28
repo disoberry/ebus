@@ -11,6 +11,8 @@ class BusTableM(models.Model):
     status = models.BooleanField()
 
 
+
+
     # ch8 = "8:00"
     # ch9 = "9:00"
     # ch10 = "10:00"
