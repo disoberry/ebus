@@ -4,11 +4,14 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserM
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, first_name, last_name, password, **extra_fields):
         if not email:
             raise ValueError('The email is not given')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        user.is_active = True
+        first_name = self.model(first_name=first_name)
+        last_name = self.model(last_name=last_name)
         user.set_password(password)
         user.save()
         return user
@@ -27,8 +30,8 @@ class UserManager(BaseUserManager):
 class CustomUserM(AbstractBaseUser):
     email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=128, null=True)
-    first_name = models.CharField(max_length=255, null=True, blank=True)
-    last_name = models.CharField(max_length=255, null=True, blank=True)
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
