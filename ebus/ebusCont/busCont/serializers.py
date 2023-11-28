@@ -5,7 +5,7 @@ from .models import *
 class LeadSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusTableM
-        fields = ('id' ,'price', 'fromWhere', 'toWhere', 'seats',
+        fields = ('id' ,'price', 'fromWhere', 'toWhere', 'seats','freeSeats',
                   'platform', 'status')
 
         # 'raceNum',
