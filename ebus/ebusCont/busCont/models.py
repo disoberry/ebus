@@ -55,8 +55,8 @@ class SeatN(models.Model):
     bus = models.ForeignKey(BusTableM, on_delete=models.CASCADE)
 
 
-# @receiver(post_save, sender=BusTableM)
-# def create_seats(sender, instance, created, **kwargs):
-#     if created:
-#         for seatc in range (0, instance.seats):
-#             instance.seat.create( )
+@receiver(post_save, sender=BusTableM)
+def create_seats(sender, instance, created, **kwargs):
+    if created:
+        for seatc in range (0, instance.seats):
+            instance.seat.create( )

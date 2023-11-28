@@ -4,7 +4,8 @@ from knox.models import AuthToken
 from rest_framework.response import Response
 from rest_framework import status, generics
 from .models import CustomUserM
-from .serializers import CreateUserSerializer, UpdateUserSerializer, LoginSerializer, RegisterUserSerializer, UserSerializer
+from .serializers import CreateUserSerializer, UpdateUserSerializer, LoginSerializer,\
+    RegisterUserSerializer, UserSerializer
 from knox import views as knox_views
 from django.contrib.auth import login
 
@@ -44,8 +45,8 @@ class LoginAPIView(knox_views.LoginView):
         if serializer.is_valid(raise_exception=True):
             user = serializer.validated_data['user']
             login(request, user)
-            responce = super().post(request, format=None)
+            response = super().post(request, format=None)
         else:
-            return Responce({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(responce.data, status=status.HTTP_200_OK)
+        return Response(response.data, status=status.HTTP_200_OK)
