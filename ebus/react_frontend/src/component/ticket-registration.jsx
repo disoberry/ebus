@@ -8,8 +8,13 @@ import {
 } from "./element/utills";
 import TicketBus from "./element/ticket-bus";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function TicketRegistration() {
+  const [seat, setSeat] = useState(0);
+  const checkSeat = (item) => {
+    document.getElementById("selected-seat").innerText = item;
+  };
   return (
     <Block className="w-100 d-flex flex-column align-items-center">
       <h3 className="my-xl-3">Оберіть своє місце</h3>
@@ -30,12 +35,17 @@ export default function TicketRegistration() {
           </span>
           <p>Відправка о 5:00</p>
           <p>Прибуття о 11:15</p>
+          <span className="d-flex align-items-center w-100 px-1 py-2 mx-1">
+            <b>Вибране місце:</b> <p id="selected-seat" className="py-0 my-0">{" "}</p>
+          </span>
         </div>
         <span className="">
-          <TicketBus />
+          <TicketBus checkSeat={checkSeat} />
         </span>
       </div>
-      <Link to={'/ready-ticket'}><Btn>Замовити квиток</Btn></Link>
+      <Link to={"/ready-ticket"}>
+        <Btn>Замовити квиток</Btn>
+      </Link>
     </Block>
   );
 }
