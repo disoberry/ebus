@@ -8,51 +8,20 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
 
   function sendData() {
-<<<<<<< HEAD
-    fetch("http://127.0.0.1:8000/auth/register/", {
+    const requestOptions = {
       method: "POST",
       headers: {
+        Accept: "\napplication/json",
+        Authorization: "YOUR_TOKEN",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "email": "test@gmail.com",
-        "password": "Qwerty1!",
+        email: "test@gmail.com",
+        password: "Qwerty1!",
       }),
-    })
-      .then((response) => {
-        response.json();
-        console.log(response);
-      })
-=======
-    // const response = fetch("http://127.0.0.1:8000/auth/register/", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     email: "test@gmail.com",
-    //     password: "Qwerty1!",
-    //   }),
-
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Access-Control-Allow-Headers": "",
-    //     // other possible headers
-    //   },
-    // });
-    // console.log(response);
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          Accept: "\napplication/json",
-          Authorization: "YOUR_TOKEN",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: "test@gmail.com",
-          password: "Qwerty1!",
-        }),
-      };
+    };
     fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
       .then((response) => response.json())
->>>>>>> refs/remotes/origin/main
       .then((data) => console.log(data));
   }
 

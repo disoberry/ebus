@@ -18,20 +18,22 @@ export default function SignIn() {
 
   function sendData() {
     fetch("http://127.0.0.1:8000/auth/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "email": emailRef.current.value,
-          "password": passwordRef.current.value,
-        }),
+      method: "POST",
+      headers: {
+        Accept: "\napplication/json",
+        Authorization: "YOUR_TOKEN",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      }),
+    })
+      .then((response) => {
+        response.json();
+        console.log(response);
       })
-        .then((response) => {
-          response.json();
-          console.log(response);
-        })
-        .then((data) => console.log(data));
+      .then((data) => console.log(data));
   }
 
   return (
