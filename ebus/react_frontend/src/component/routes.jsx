@@ -21,7 +21,6 @@ export default function RoutesPage() {
     fetch("http://127.0.0.1:8000/ebuscont/api/")
       .then((response) => response.json())
       .then((data) => setBusList(data));
-      console.log(listBus)
   }, []);
 
   function getBusById(bus_id) {
@@ -59,7 +58,7 @@ export default function RoutesPage() {
                 </CostBlock>
               </div>
               <div className="row d-flex align-items-center justify-content-lg-between justify-content-md-between justify-content-sm-center justify-content-center">
-                {listRacesBus.map((race)=> ( 
+                {listRacesBus.map((race)=> ((race.bus_table===bus.id) ? ( 
                 <div key={race.id} className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
                   <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
                     <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
@@ -82,7 +81,7 @@ export default function RoutesPage() {
                       </OrderBtn>
                     </span>
                   </div>
-                </div>))}
+                </div>) : ("")))}
                 {/* <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
                   <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
                     <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
