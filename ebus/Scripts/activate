@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\нувгп\ІПЗ-31\менеджмент\ebus"
+VIRTUAL_ENV="X:\Projects\GitHub-Clones\ebus-full\ebus\ebus"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
