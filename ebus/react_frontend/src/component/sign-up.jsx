@@ -22,21 +22,19 @@ export default function SignUp() {
     //   },
     // });
     // console.log(response);
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "\napplication/json",
-        Authorization: "YOUR_TOKEN",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "test@gmail.com",
-        password: "Qwerty1!",
-        first_name: "",
-        last_name: "",
-      }),
-    };
-    fetch("http://127.0.0.1:8000/auth/register/", requestOptions)
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          Accept: "\napplication/json",
+          Authorization: "YOUR_TOKEN",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: "test@gmail.com",
+          password: "Qwerty1!",
+        }),
+      };
+    fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
       .then((response) => response.json())
       .then((data) => console.log(data));
   }
