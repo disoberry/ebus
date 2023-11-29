@@ -1,15 +1,20 @@
 from django.db import models
 from authCont.models import CustomUserM
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+
 class BusTableM(models.Model):
     price = models.IntegerField()
     # raceNum = models.IntegerField()
     fromWhere = models.TextField()
     toWhere = models.TextField()
     seats = models.IntegerField()
-    freeSeats = models.IntegerField()
+
+
     platform = models.IntegerField()
     status = models.BooleanField()
-
 
 
 
@@ -35,7 +40,6 @@ class BusTableM(models.Model):
     # routeSchedule = models.TextField(choices=ROUTE_SCHEDULE_STAMPS, default="c12")
 
 
-
 class BusTrip(models.Model):
     bus_table = models.ForeignKey(BusTableM, on_delete=models.CASCADE)
     timeFrom = models.TimeField()
@@ -46,3 +50,13 @@ class Ticket(models.Model):
     seat_number = models.IntegerField(null=False)
     trip_race_ticket = models.ForeignKey(BusTrip, on_delete=models.CASCADE)
     ticket_owner = models.ForeignKey(CustomUserM, on_delete=models.CASCADE)
+
+class SeatN(models.Model):
+    bus = models.ForeignKey(BusTableM, on_delete=models.CASCADE)
+
+
+# @receiver(post_save, sender=BusTableM)
+# def create_seats(sender, instance, created, **kwargs):
+#     if created:
+#         for seatc in range (0, instance.seats):
+#             instance.seat.create( )
