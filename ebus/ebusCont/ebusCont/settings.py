@@ -135,6 +135,9 @@ REST_FRAMEWORK = {
 }
 
 REST_KNOX = {
-    'USER_SERIALIZER': 'auth.serializires.UserSerializer',
+    'USER_SERIALIZER': 'authCont.serializers.UserSerializer',
     'TOKEN_TTL': timedelta(hours=48)
 }
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
