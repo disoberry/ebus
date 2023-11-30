@@ -8,7 +8,7 @@ from .serializers import CreateUserSerializer, UpdateUserSerializer, LoginSerial
     RegisterUserSerializer, UserSerializer
 from knox import views as knox_views
 from django.contrib.auth import login
-
+from django.contrib.auth import authenticate
 
 
 class RegisterUserAPI(generics.GenericAPIView):
@@ -37,6 +37,7 @@ class UpdateUserAPI(UpdateAPIView):
 
 
 class LoginAPIView(knox_views.LoginView):
+    queryset = CustomUserM
     permission_classes = (AllowAny, )
     serializer_class = LoginSerializer
 
@@ -47,6 +48,8 @@ class LoginAPIView(knox_views.LoginView):
             login(request, user)
             response = super().post(request, format=None)
         else:
-            return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'errors': serializer.errors,
+
+                             }, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(response.data, status=status.HTTP_200_OK)

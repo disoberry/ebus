@@ -30,8 +30,8 @@ export default function SignIn() {
       }),
     })
       .then((response) => {
-        response.json();
-        console.log(response);
+        const data = response.json()
+        return data;
       })
       .then((data) => console.log(data));
   }
