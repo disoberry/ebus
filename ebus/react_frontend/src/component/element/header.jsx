@@ -3,8 +3,13 @@ import logo from "../../images/e-avtobus-logo.png";
 import styled, { css } from "styled-components";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { darkGrey, lightGreen, mainGreen } from "./utills";
+import { useEffect } from "react";
 
 export default function Header() {
+  useEffect(() => {
+    document.getElementById("check-user").innerText =
+      localStorage.getItem("user") != null ? "Кабінет" : "Увійти";
+  }, []);
   return (
     <Block collapseOnSelect expand="lg">
       <div className="d-flex align-items-center justify-content-between">
@@ -19,12 +24,20 @@ export default function Header() {
       </div>
       <Navbar.Collapse className="" id="responsive-navbar-nav">
         <Nav className="me-auto items-bar">
-          <Link className="item-link" to={"/buses-table"}>Табло Автобусів</Link>
-          <Link className="item-link" to={"/routes"}>Маршрути</Link>
-          <Link className="item-link" to={"/"}>Розташування</Link>
-          <Link className="item-link" to={"/"}>Про нас</Link>
+          <Link className="item-link" to={"/buses-table"}>
+            Табло Автобусів
+          </Link>
+          <Link className="item-link" to={"/routes"}>
+            Маршрути
+          </Link>
+          <Link className="item-link" to={"/"}>
+            Розташування
+          </Link>
+          <Link className="item-link" to={"/"}>
+            Про нас
+          </Link>
           <Link to={"/sign-in"}>
-            <Btn>Увійти</Btn>
+            <Btn id={"check-user"}></Btn>
           </Link>
         </Nav>
       </Navbar.Collapse>

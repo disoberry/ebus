@@ -8,13 +8,14 @@ import {
   lightGrey,
   mainGreen,
 } from "./element/utills";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const navigate = useNavigate();
 
   function sendData() {
     fetch("http://127.0.0.1:8000/auth/login/", {
@@ -32,6 +33,11 @@ export default function SignIn() {
       .then((response) => {
         response.json();
         console.log(response);
+        if (response.status === 200) {
+          localStorage.setItem("user", emailRef.current.value);
+          document.getElementById("check-user").innerText = "Кабінет";
+          navigate("/user");
+        }
       })
       .then((data) => console.log(data));
   }

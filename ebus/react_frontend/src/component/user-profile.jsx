@@ -15,6 +15,8 @@ import free_icon_bus from "../images/free-icon-bus.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TicketCard from "./element/ticket-card";
+import { Modal } from "react-bootstrap";
+import './element/modal-styles.css'
 
 export default function UserProfile({ link }) {
   const [displayed, setDisplayed] = useState(false);
@@ -41,6 +43,11 @@ export default function UserProfile({ link }) {
       user_div.classList.remove("active");
     }
   }
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
     normalizeTabs(link);
   }, []);
@@ -111,7 +118,7 @@ export default function UserProfile({ link }) {
             <div className="row exit-div w-100 d-flex justify-content-around">
               <span className="col-3">
                 Хочете змінити профіль?
-                <p>Вихід з профілю</p>
+                <p onClick={handleShow}>Вихід з профілю</p>
               </span>
               <span className="col-4"></span>
             </div>
@@ -179,6 +186,26 @@ export default function UserProfile({ link }) {
           </TicketsTab>
         </div>
       </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        // size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+         className={"d-flex flex-column align-items-center"}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Ви вийшли !</Modal.Title>
+        </Modal.Header>
+        {/* <Modal.Footer>
+          <button variant="secondary" onClick={handleClose}>
+            Close
+          </button>
+          <button variant="primary" onClick={handleClose}>
+            Save Changes
+          </button>
+        </Modal.Footer> */}
+      </Modal>
     </Block>
   );
 }
