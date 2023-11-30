@@ -95,7 +95,7 @@ export default function UserProfile({ link }) {
           >
             <div className="row w-100 m-0 py-3 p-1 pt-5 align-items-center justify-content-around">
               <p className="col-6 m-0" style={{ fontSize: "1.5em" }}>
-                {localStorage.getItem("user")}
+                {JSON.parse(localStorage.getItem("user")).user.email}
               </p>
               <img
                 className="col-5"

@@ -5,10 +5,30 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { darkGrey, lightGreen, mainGreen } from "./utills";
 import { useEffect } from "react";
 
+export function checkingExpiryDate() {
+  if (localStorage.getItem("user") != null) {
+    var date = new Date(JSON.parse(localStorage.getItem("user")).expiry);
+    const today = new Date();
+    console.log();
+    if (date.toLocaleDateString() === today.toLocaleDateString()) {
+      localStorage.removeItem("user");
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    return false;
+  }
+}
+
 export default function Header() {
   useEffect(() => {
+    // if (localStorage.getItem("user") != null) {
+    //   checkingExpiryDate();
+    // }
     document.getElementById("check-user").innerText =
-      localStorage.getItem("user") != null ? "Кабінет" : "Увійти";
+      checkingExpiryDate() ? "Кабінет" : "Увійти";
+      document.getElementById("link-check-user").setAttribute("to", checkingExpiryDate() ? "/user" : "/sign-in")
   }, []);
   return (
     <Block collapseOnSelect expand="lg">
@@ -36,7 +56,7 @@ export default function Header() {
           <Link className="item-link" to={"/"}>
             Про нас
           </Link>
-          <Link to={"/sign-in"}>
+          <Link id={"link-check-user"} to={checkingExpiryDate() ? "/user" : "/sign-in"}>
             <Btn id={"check-user"}></Btn>
           </Link>
         </Nav>
