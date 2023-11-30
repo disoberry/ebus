@@ -12,14 +12,15 @@ import user_img from "../images/user-profile.png";
 import quote_1 from "../images/quote 1.png";
 import quote_2 from "../images/quote 2.png";
 import free_icon_bus from "../images/free-icon-bus.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TicketCard from "./element/ticket-card";
-import { Modal } from "react-bootstrap";
-import './element/modal-styles.css'
+import { Modal, Toast } from "react-bootstrap";
+import "./element/modal-styles.css";
 
 export default function UserProfile({ link }) {
   const [displayed, setDisplayed] = useState(false);
+  const navigate = useNavigate();
 
   function normalizeTabs(link_) {
     const profile_tab = document.getElementById("user-tab");
@@ -44,9 +45,6 @@ export default function UserProfile({ link }) {
     }
   }
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   useEffect(() => {
     normalizeTabs(link);
@@ -97,7 +95,7 @@ export default function UserProfile({ link }) {
           >
             <div className="row w-100 m-0 py-3 p-1 pt-5 align-items-center justify-content-around">
               <p className="col-6 m-0" style={{ fontSize: "1.5em" }}>
-                Емейл Користувача
+                {localStorage.getItem("user")}
               </p>
               <img
                 className="col-5"
@@ -118,7 +116,20 @@ export default function UserProfile({ link }) {
             <div className="row exit-div w-100 d-flex justify-content-around">
               <span className="col-3">
                 Хочете змінити профіль?
-                <p onClick={handleShow}>Вихід з профілю</p>
+                <p
+                  onClick={() => {
+                    setShow(true);
+                    setTimeout(() => {
+                      setShow(false);
+                      localStorage.removeItem("user");
+                      document.getElementById("check-user").innerText =
+                        "Увійти";
+                      navigate("/");
+                    }, 2000);
+                  }}
+                >
+                  Вихід з профілю
+                </p>
               </span>
               <span className="col-4"></span>
             </div>
@@ -186,26 +197,29 @@ export default function UserProfile({ link }) {
           </TicketsTab>
         </div>
       </div>
-      <Modal
+      <Toast
+        className={""}
+        onClose={() => setShow(false)}
         show={show}
-        onHide={handleClose}
-        // size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-         className={"d-flex flex-column align-items-center"}
+        // delay={3000}
+        // autohide
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Ви вийшли !</Modal.Title>
-        </Modal.Header>
-        {/* <Modal.Footer>
-          <button variant="secondary" onClick={handleClose}>
-            Close
-          </button>
-          <button variant="primary" onClick={handleClose}>
-            Save Changes
-          </button>
-        </Modal.Footer> */}
-      </Modal>
+        {/*  */}
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <p className="m-0 me-auto">Сповіщення</p>
+          {/* <small>11 mins ago</small> */}
+        </Toast.Header>
+        <Toast.Body className="p-2 d-flex align-items-center">
+          <i
+            className="fa-solid fa-hand-holding-heart fa-xl"
+            style={{ color: "#27c55d" }}
+          ></i>
+          <p className="m-0 px-2" style={{ fontSize: "1.2em" }}>
+            Ви вийшли з системи.
+          </p>
+        </Toast.Body>
+      </Toast>
     </Block>
   );
 }
@@ -251,6 +265,7 @@ const TicketsTab = styled.div`
     }
   }
 `;
+
 const Block = styled.div`
   font-family: "DiaFontLight";
   .nav-link.active {

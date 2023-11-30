@@ -1,5 +1,15 @@
-.modal-content {
-    border: 3px solid #000;
-    border-radius: 15px;
+.toast {
+    border-radius: 8px;
     font-family: 'DiaFontRegular';
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    box-shadow:none;
+    background-color: #fff;
+    border: 1px solid #000;
+
+}
+
+.toast-body {
+    margin: 0.4em;
 }
