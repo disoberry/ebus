@@ -1,76 +1,135 @@
 import styled from "styled-components";
 import { darkGreen, lightGreen, mainGreen } from "./utills";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const seatItem = {
+  seats: 40,
+  freeSeats: [
+    2, 3, 4, 5, 6, 8, 9, 10, 13, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27,
+    28, 29, 30, 31, 33, 34, 36, 37, 39,
+  ],
+};
 
 export default function TicketBus({ checkSeat }) {
-  //   const arr = Array(59).fill("");
   const [currentSeat, setSeat] = useState(0);
+  const [firstRow, setFirstRow] = useState([]);
+  const [secondRow, setSecondRow] = useState([]);
+  const [lastRow, setLastRow] = useState([]);
   const checkCurrentSeat = (item) => {
-    console.log(item);
     checkSeat(item);
   };
-  function setBusSeats(start, end) {
-    const childen = [];
-    for (let i = start; i <= end; i++) {
-      childen.push(
-        <SeatElem key={i} id={i} checkCurrentSeat={checkCurrentSeat} />
-      );
+
+  useEffect(() => {
+    setBusSeats();
+  }, []);
+
+  function fillBlock(arrSeats, setChildren) {
+    const children = [];
+    arrSeats.map((item) =>
+      children.push(
+        <SeatElem
+          key={item.key}
+          id={item.value}
+          checkCurrentSeat={checkCurrentSeat}
+          isReserved={item.isReserved}
+        />
+      )
+    );
+    setChildren(children);
+  }
+
+  function setBusSeats() {
+    let list = [];
+    for (let key = 1; key <= seatItem.seats; key++) {
+      list.push({
+        key: key - 1,
+        value: key,
+        isReserved: !seatItem.freeSeats.includes(key),
+      });
     }
-    return childen;
+    console.log(list);
+    let last_row = list.slice(list.length - 5, list.length);
+    let first_row = list.slice(
+      0,
+      Math.round((list.length - last_row.length) / 2)
+    );
+    let second_row = list.slice(
+      first_row.length,
+      list.length - last_row.length
+    );
+    fillBlock(first_row, setFirstRow);
+    fillBlock(second_row, setSecondRow);
+    fillBlock(last_row, setLastRow);
   }
   return (
-    <div className=" w-100 p-xl-2" style={{ margin: "0 auto" }}>
+    <div className="p-xl-2" style={{ margin: "0 auto", width: `${(firstRow.length/2)*66.5+55}px` }}>
       <BusDiv className="d-flex justify-content-between ">
         <div className="d-flex flex-column justify-content-between align-items-center">
-          <span id="first" className="d-flex flex-wrap">
-            {setBusSeats(1, 26)}
+          <span id="first-row" className="d-flex flex-wrap justify-content-end">
+            {firstRow}
           </span>
-          <span id="second" className="d-flex flex-wrap">
-            {setBusSeats(27, 52)}
+          <span
+            id="second-row"
+            className="d-flex flex-wrap-reverse justify-content-end"
+          >
+            {secondRow}
           </span>
         </div>
-        <span className="d-flex flex-column justify-content-between">
-          {setBusSeats(53, 58)}
+        <span
+          id="last-row"
+          className="d-flex flex-column justify-content-between"
+        >
+          {lastRow}
         </span>
       </BusDiv>
     </div>
   );
 }
 
-const SeatElem = ({ id, checkCurrentSeat }) => {
+const SeatElem = ({ id, checkCurrentSeat, isReserved }) => {
   const handleFocus = (e) => {
     e.preventDefault();
     e.target.style.boxShadow = `0 0 2px 1px ${mainGreen}`;
     e.target.style.backgroundColor = `${darkGreen}`;
-    e.target.style.borderColor = "transparent"
-    e.target.style.color = "#fff"
+    e.target.style.borderColor = "transparent";
+    e.target.style.color = "#fff";
   };
   const handleBlur = (e) => {
     e.preventDefault();
     e.target.style.boxShadow = `none`;
     e.target.style.backgroundColor = `transparent`;
-    e.target.style.borderColor = "#000"
-    e.target.style.color = "#000"
+    e.target.style.borderColor = "#000";
+    e.target.style.color = "#000";
   };
   const handleClick = (e) => {
     e.preventDefault();
     console.log(e.target.textContent);
     checkCurrentSeat(e.target.textContent);
   };
+  console.log(id);
   return (
     <button
       key={id}
       style={{
-        backgroundColor: id % 2 === 0 ? `${lightGreen}` : "transparent",
+        backgroundColor: isReserved ? `${lightGreen}` : "transparent",
         color: "#000",
-        borderColor: id % 2 === 0 ? `${mainGreen}` : "",
+        borderColor: isReserved ? `${mainGreen}` : "",
       }}
+      data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
       className="d-flex justify-content-center align-items-center"
-      onFocus={(e) => handleFocus(e)}
-      onBlur={(e) => handleBlur(e)}
-      onClick={(e) => handleClick(e)}
+      onFocus={(e) => (!isReserved ? handleFocus(e) : {})}
+      onBlur={(e) => (!isReserved ? handleBlur(e) : {})}
+      onClick={(e) =>
+        !isReserved ? handleClick(e) : {}
+      }
+      onMouseEnter={(e) =>
+        isReserved ? (e.target.style.cursor = "not-allowed") : "default"
+      }
+      onMouseLeave={(e) =>
+        isReserved ? (e.target.style.cursor = "default") : "default"
+      }
     >
-      {id}
+      {id}{" "}
     </button>
   );
 };
@@ -81,14 +140,14 @@ const BusDiv = styled.div`
   border-radius: 1em;
   padding: 1em;
   margin: 0.5em;
-  width: 786px;
+  /* width: 786px; */
   button {
     margin: 3px;
     padding: 0.5em;
     border: 3px solid #000;
     border-radius: 40%;
-    width: 2.7em;
-    height: 2.7em;
+    width: 50px;
+    height: 50px;
     font-size: 1.1em;
     background-color: transparent;
     &:hover {

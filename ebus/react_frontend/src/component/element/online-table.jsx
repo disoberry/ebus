@@ -1,40 +1,42 @@
 import styled from "styled-components";
 import { darkGreen, mainGreen } from "./utills";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const data = [
-  {
-    id: 1,
-    departureTime: "09:15",
-    from: "Рівне",
-    to: "Київ",
-    arrivalTime: "14:20",
-    platform: 28,
-    status: "Відбув",
-  },
-  {
-    id: 2,
-    departureTime: "10:45",
-    from: "Рівне",
-    to: "Дубно",
-    arrivalTime: "12:15",
-    platform: 5,
-    status: "Очікується",
-  },
-  {
-    id: 3,
-    departureTime: "11:00",
-    from: "Рівнe",
-    to: "Дачі",
-    arrivalTime: "11:55",
-    platform: 118,
-    status: "Прибув",
-  },
-];
+// const data = [
+//   {
+//     id: 1,
+//     departureTime: "09:15",
+//     from: "Рівне",
+//     to: "Київ",
+//     arrivalTime: "14:20",
+//     platform: 28,
+//     status: "Відбув",
+//   },
+//   {
+//     id: 2,
+//     departureTime: "10:45",
+//     from: "Рівне",
+//     to: "Дубно",
+//     arrivalTime: "12:15",
+//     platform: 5,
+//     status: "Очікується",
+//   },
+//   {
+//     id: 3,
+//     departureTime: "11:00",
+//     from: "Рівнe",
+//     to: "Дачі",
+//     arrivalTime: "11:55",
+//     platform: 118,
+//     status: "Прибув",
+//   },
+// ];
 
 export default function OnlineTable() {
   const [listRacesBus, setList] = useState([]);
   const [listBus, setBusList] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://127.0.0.1:8000/ebuscont/api/triprace")
       .then((response) => response.json())
@@ -58,8 +60,8 @@ export default function OnlineTable() {
 
   // function getTime(date) {
   //   let mydate = new Date(date);
-  //   return `${("0" + mydate.getUTCHours()).slice(-2)} : 
-  //   ${("0" + mydate.getUTCMinutes()).slice(-2)} : 
+  //   return `${("0" + mydate.getUTCHours()).slice(-2)} :
+  //   ${("0" + mydate.getUTCMinutes()).slice(-2)} :
   //   ${("0" + mydate.getUTCSeconds()).slice(-2)}`;
   // }
   // console.log(listRacesBus);
@@ -75,6 +77,7 @@ export default function OnlineTable() {
       return "#169A43";
     }
   }
+
   return (
     <AdaptiveTable className="row w-100">
       <div className="w-100 col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
@@ -109,13 +112,22 @@ export default function OnlineTable() {
                 <td
                   style={{
                     color: checkingColor(getBusById(item.bus_table).status),
-                    fontWeight: getBusById(item.bus_table).status === true ? "bold" : "",
+                    fontWeight:
+                      getBusById(item.bus_table).status === true ? "bold" : "",
                   }}
                 >
                   {getBusById(item.bus_table).status ? "Прибув" : "Відбув"}
                 </td>
                 <td>
                   <button
+                    onClick={() =>
+                      navigate("/ticket-registration", {
+                        state: {
+                          race: item,
+                          bus: getBusById(item.bus_table),
+                        },
+                      })
+                    }
                     style={{
                       backgroundColor:
                         item.id % 2 === 0 ? darkGreen : mainGreen,

@@ -4,7 +4,6 @@ import {
   backgroundGrey,
   darkGreen,
   darkGrey,
-  lightGreen,
   lightGrey,
   mainGreen,
 } from "./element/utills";
@@ -26,7 +25,7 @@ export default function SignIn() {
 
   function sendData() {
     let status = 0;
-    if (emailValid == "" && passwordValid == "") {
+    if (emailValid === "" && passwordValid === "") {
       fetch("http://127.0.0.1:8000/auth/login/", {
         method: "POST",
         headers: {
@@ -42,11 +41,9 @@ export default function SignIn() {
         .then((response) => {
           const data = response.json();
           status = response.status;
-          return data;
-          
+          return data;          
         })
         .then((data) => {
-          console.log(data);
           if (status === 200) {
             localStorage.setItem("user", JSON.stringify(data));
             document.getElementById("check-user").innerText = "Кабінет";
