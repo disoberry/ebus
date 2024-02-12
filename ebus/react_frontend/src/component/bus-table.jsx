@@ -11,8 +11,10 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import OnlineTable from "./element/online-table";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker,  { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import uk from "date-fns/locale/uk";
+registerLocale("uk", uk);
 
 const animatedComponents = makeAnimated();
 const dropdownValues = [
@@ -59,10 +61,17 @@ export default function BusesTable() {
             <i className="fa-solid fa-square" style={{ color: "#ffffff" }}></i>
           </InputSpan>
           <InputSpan className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-9 d-flex align-items-center justify-content-between">
-            <i className="fa-solid fa-location-dot"></i>
+          <i class="fa-regular fa-calendar-days" style={{ color: `${mainGreen}` }}></i>
 
-            <DatePicker selected={date} onChange={(date) => setDate(date)} dateFormat="dd/MM/YYYY" />
-            <i className="fa-solid fa-square" style={{ color: "#ffffff" }}></i>
+            <DatePicker
+              selected={date}
+              onChange={(date) => {
+                setDate(date);
+                console.log(date);
+              }}
+              dateFormat="eeee, dd MMMM"
+              locale="uk"
+            />
           </InputSpan>
           <DropdownSpan className="col-xl-2 col-lg-2 col-md-5 col-sm-9 col-9 d-flex">
             <span
@@ -153,18 +162,18 @@ const InputSpan = styled.span`
     font-size: 0.9em;
     width: 80%;
   }
-.react-datepicker__day--selected {
-  background-color: ${mainGreen};
-}
-.react-datepicker__day--outside-month {
-  color: lightgray
-}
-.react-datepicker__day--weekend {
-  color: ${darkGreen};
-}
-.react-datepicker__month {
-  font-family: "DiaFontMedium";
-}
+  .react-datepicker__day--selected {
+    background-color: ${mainGreen};
+  }
+  .react-datepicker__day--outside-month {
+    color: lightgray;
+  }
+  .react-datepicker__day--weekend {
+    color: ${darkGreen};
+  }
+  .react-datepicker__month {
+    font-family: "DiaFontMedium";
+  }
 `;
 
 const TopBlock = styled.div`
