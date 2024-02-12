@@ -10,7 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { validateEmail, validatePassword } from "./element/validation";
-import { ErrorText } from "./sign-up";
+import { ErrorText } from "./Sign-up";
 import { Toast } from "react-bootstrap";
 
 export default function SignIn() {

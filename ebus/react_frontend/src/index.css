@@ -26,3 +26,10 @@
     local("DiaFontRegular"),
     url("./fonts/e-Ukraine-UltraLight.otf") format("truetype");
 }
+
+@font-face {
+  font-family: "DiaFontMedium";
+  src:
+    local("DiaFontRegular"),
+    url("./fonts/e-Ukraine-Medium.otf") format("truetype");
+}

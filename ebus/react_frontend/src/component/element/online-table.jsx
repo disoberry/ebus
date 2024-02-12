@@ -78,6 +78,15 @@ export default function OnlineTable() {
     }
   }
 
+  listRacesBus.push({
+    id: listRacesBus.length + 1,
+    bus_table: "",
+    timeFrom: null,
+    timeTo: null,
+    date: null,
+  });
+  console.log(listRacesBus);
+
   return (
     <AdaptiveTable className="row w-100">
       <div className="w-100 col-xl-8 col-lg-8 col-md-10 col-sm-10 col-10">
@@ -104,9 +113,13 @@ export default function OnlineTable() {
                 }}
               >
                 <td>{item.timeFrom}</td>
-                <td>{`${getBusById(item.bus_table).fromWhere} – ${
-                  getBusById(item.bus_table).toWhere
-                }`}</td>
+                <td>
+                  {item.bus_table === ""
+                    ? ``
+                    : `${getBusById(item.bus_table).fromWhere} – ${
+                        getBusById(item.bus_table).toWhere
+                      }`}
+                </td>
                 <td>{item.timeTo}</td>
                 <td>{getBusById(item.bus_table).platform}</td>
                 <td
@@ -116,7 +129,11 @@ export default function OnlineTable() {
                       getBusById(item.bus_table).status === true ? "bold" : "",
                   }}
                 >
-                  {getBusById(item.bus_table).status ? "Прибув" : "Відбув"}
+                  {item.bus_table === ""
+                    ? ``
+                    : `${
+                        getBusById(item.bus_table).status ? "Прибув" : "Відбув"
+                      }`}
                 </td>
                 <td>
                   <button
@@ -128,10 +145,16 @@ export default function OnlineTable() {
                         },
                       })
                     }
-                    style={{
-                      backgroundColor:
-                        item.id % 2 === 0 ? darkGreen : mainGreen,
-                    }}
+                    style={
+                      item.bus_table === ""
+                        ? {
+                            visibility: "hidden",
+                          }
+                        : {
+                            backgroundColor:
+                              item.id % 2 === 0 ? darkGreen : mainGreen,
+                          }
+                    }
                   >
                     Знайти квиток
                   </button>
@@ -184,6 +207,7 @@ const AdaptiveTable = styled.div`
     padding: 0.5em 0.7em;
     font-size: 0.9em;
     border-radius: 0.5em;
+
     &:hover {
       box-shadow: 0 0 2px 3px #3e9045;
     }

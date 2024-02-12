@@ -2,9 +2,9 @@ import styled from "styled-components";
 import bus_img from "../images/bus-logo.png";
 import { MainButton } from "./element/header";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Home() {
-  
   return (
     <Block
       id="block"
@@ -15,7 +15,9 @@ export default function Home() {
         <h3>єАвтобус</h3>
       </span>
       <p>Зручне оформлення квитків для кожного.</p>
-      <Link to={"/buses-table"}>
+      <Link
+        to={localStorage.getItem("user") === null ? "/sign-in" : "/buses-table"}
+      >
         <button>Замовити квиток</button>
       </Link>
     </Block>
