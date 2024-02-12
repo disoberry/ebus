@@ -16,7 +16,7 @@ class TripRaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BusTrip
-        fields = ('id', 'bus_table', 'timeFrom', 'timeTo', 'date')
+        fields = ('id', 'bus_table', 'freeSeats', 'seats', 'timeFrom', 'timeTo', 'date')
 
 
 
@@ -24,4 +24,4 @@ class TicketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ticket
-        fields = ('id' ,'trip_race_ticket', 'freeSeats', 'seats', 'seat_number', 'ticket_owner', 'ticket_status')
+        fields = ('id' ,'trip_race_ticket', 'seat_number', 'ticket_owner', 'ticket_status')

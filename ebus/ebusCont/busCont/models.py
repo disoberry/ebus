@@ -44,22 +44,24 @@ class BusTableM(models.Model):
 
 
 class BusTrip(models.Model):
+    seats = models.IntegerField()
+    freeSeats = models.IntegerField()
+    freeSeats = models.ManyToManyField('SeatN', blank=True)
+
     bus_table = models.ForeignKey(BusTableM, on_delete=models.CASCADE)
     timeFrom = models.TimeField()
     timeTo = models.TimeField()
     date = models.DateField()
 
 class Ticket(models.Model):
-    seats = models.IntegerField()
-    freeSeats = models.IntegerField()
-    freeSeats = models.ManyToManyField('SeatN', blank=True)
+
     seat_number = models.IntegerField(null=False)
     trip_race_ticket = models.ForeignKey(BusTrip, on_delete=models.CASCADE)
     ticket_owner = models.ForeignKey(CustomUserM, on_delete=models.CASCADE)
     ticket_status = models.BooleanField()
 
 
-@receiver(post_save, sender=Ticket)
+@receiver(post_save, sender=BusTrip)
 def create_free_seats(sender, instance, created, **kwargs):
     if created:
         # Automatically create SeatN instances for available seats
@@ -71,5 +73,5 @@ def create_free_seats(sender, instance, created, **kwargs):
 #     bus_race = models.ForeignKey(BusTrip, on_delete=models.CASCADE)
 
 class SeatN(models.Model):
-    bus_table = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    bus_table = models.ForeignKey(BusTrip, on_delete=models.CASCADE)
     seat_number = models.IntegerField()
