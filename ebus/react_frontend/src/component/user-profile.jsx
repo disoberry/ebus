@@ -163,7 +163,6 @@ export default function UserProfile({ link }) {
                   </button>
                   {status !== "Не дійсний" ? <p>Залишилося 9:41 хв.</p> : <></>} */}
                   <button className={`my-2`}>Оплатити</button>
-                  <p>Залишилося 9:41 хв.</p>
                 </span>
               </div>
               <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">

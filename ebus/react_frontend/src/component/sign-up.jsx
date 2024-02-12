@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { SignBlock } from "./sign-in";
+import { SignBlock } from "./Sign-in";
 import { useRef, useState } from "react";
 import { validateEmail, validatePassword } from "./element/validation";
 import styled from "styled-components";

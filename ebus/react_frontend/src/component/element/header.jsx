@@ -26,6 +26,7 @@ export default function Header() {
     // if (localStorage.getItem("user") != null) {
     //   checkingExpiryDate();
     // }
+    console.log(localStorage.getItem("user")===null)
     document.getElementById("check-user").innerText =
       checkingExpiryDate() ? "Кабінет" : "Увійти";
       document.getElementById("link-check-user").setAttribute("to", checkingExpiryDate() ? "/user" : "/sign-in")
@@ -44,16 +45,16 @@ export default function Header() {
       </div>
       <Navbar.Collapse className="" id="responsive-navbar-nav">
         <Nav className="me-auto items-bar">
-          <Link className="item-link" to={"/buses-table"}>
+          <Link className="item-link" to={localStorage.getItem("user") === null ? "/sign-in" : "/buses-table"}>
             Табло Автобусів
           </Link>
-          <Link className="item-link" to={"/routes"}>
+          <Link className="item-link" to={localStorage.getItem("user") === null ? "/sign-in" : "/routes"}>
             Маршрути
           </Link>
-          <Link className="item-link" to={"/"}>
-            Розташування
+          <Link className="item-link" to={"/contacts"}>
+            Контакти
           </Link>
-          <Link className="item-link" to={"/"}>
+          <Link className="item-link" to={"/about-us"}>
             Про нас
           </Link>
           <Link id={"link-check-user"} to={checkingExpiryDate() ? "/user" : "/sign-in"}>
