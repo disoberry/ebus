@@ -20,11 +20,19 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
+        user = self.model(email=email, **extra_fields)
+        user.is_active = True
+
         if not extra_fields.get('is_staff'):
             raise ValueError("superuser must have is staff=true")
         if not extra_fields.get('is_superuser'):
             raise ValueError("superuser must have is superuser=true")
+        user.set_password(password)
+        user.save()
+        return user
         return self.create_user(email, password, **extra_fields)
+    
+        
 
 
 class CustomUserM(AbstractBaseUser):

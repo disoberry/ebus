@@ -6,7 +6,7 @@ class LeadSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusTableM
 
-        fields = ('id' ,'price', 'fromWhere', 'toWhere', 'seats','freeSeats',
+        fields = ('id' ,'price', 'fromWhere', 'toWhere', 
                   'platform', 'status')
 
         # 'raceNum',
@@ -24,4 +24,4 @@ class TicketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ticket
-        fields = ('id' ,'trip_race_ticket', 'seat_number',  'ticket_owner',)
+        fields = ('id' ,'trip_race_ticket', 'freeSeats', 'seats', 'seat_number', 'ticket_owner', 'ticket_status')
