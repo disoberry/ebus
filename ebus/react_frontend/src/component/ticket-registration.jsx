@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  MainButton,
-  darkGreen,
-} from "./element/utills";
+import { MainButton, darkGreen } from "./element/utills";
 import TicketBus from "./element/ticket-bus";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -22,8 +19,13 @@ export default function TicketRegistration() {
   const { state } = useLocation();
 
   const checkSeat = (item) => {
+    console.log(item);
     document.getElementById("selected-seat").innerText = item;
+    item.length > 1
+      ? (document.getElementById("text-select").innerText = "Вибрані місця: ")
+      : (document.getElementById("text-select").innerText = "Вибране місце: ");
   };
+
   useEffect(() => {
     setBus(state.bus);
     setRace(state.race);
@@ -50,14 +52,22 @@ export default function TicketRegistration() {
           <p>Відправка о {race.timeFrom}</p>
           <p>Прибуття о {race.timeTo}</p>
           <span className="d-flex align-items-center w-100 px-1 py-2 mx-1">
-            <b>Вибране місце:</b>{" "}
-            <p id="selected-seat" className="py-0 my-0">
+            <b id="text-select">Вибране місце:</b>{" "}
+            <span id="selected-seat" className="px-2 py-0 my-0">
               {" "}
-            </p>
+            </span>
           </span>
         </div>
         <span className="">
-          <TicketBus checkSeat={checkSeat} />
+          <TicketBus
+            checkSeat={checkSeat}
+            seatItem={{
+              seats: race.seats,
+              freeSeats: race.freeSeats,
+            }}
+            seats={race.seats}
+            freeSeats={race.freeSeats}
+          />
         </span>
       </div>
       <Link to={"/ready-ticket"}>

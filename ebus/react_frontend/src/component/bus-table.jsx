@@ -10,9 +10,11 @@ import {
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import OnlineTable from "./element/online-table";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const animatedComponents = makeAnimated();
-
 const dropdownValues = [
   { value: 1, label: 1 },
   { value: 2, label: 2 },
@@ -26,9 +28,8 @@ const dropdownValues = [
   { value: 10, label: 10 },
 ];
 
-
-
 export default function BusesTable() {
+  const [date, setDate] = useState(new Date());
   function handleFocus(e) {
     e.target.parentElement.style.boxShadow = `0 0 2px 4px ${mainGreen}`;
   }
@@ -55,6 +56,12 @@ export default function BusesTable() {
               onFocus={(e) => handleFocus(e)}
               onBlur={(e) => handleBlur(e)}
             />
+            <i className="fa-solid fa-square" style={{ color: "#ffffff" }}></i>
+          </InputSpan>
+          <InputSpan className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-9 d-flex align-items-center justify-content-between">
+            <i className="fa-solid fa-location-dot"></i>
+
+            <DatePicker selected={date} onChange={(date) => setDate(date)} dateFormat="dd/MM/YYYY" />
             <i className="fa-solid fa-square" style={{ color: "#ffffff" }}></i>
           </InputSpan>
           <DropdownSpan className="col-xl-2 col-lg-2 col-md-5 col-sm-9 col-9 d-flex">
@@ -103,12 +110,9 @@ export default function BusesTable() {
         </div>
       </TopBlock>
       <OnlineTable />
-    
     </div>
   );
 }
-
-
 
 const SearchBtn = styled.button`
   border-radius: 0.8em;
@@ -149,6 +153,18 @@ const InputSpan = styled.span`
     font-size: 0.9em;
     width: 80%;
   }
+.react-datepicker__day--selected {
+  background-color: ${mainGreen};
+}
+.react-datepicker__day--outside-month {
+  color: lightgray
+}
+.react-datepicker__day--weekend {
+  color: ${darkGreen};
+}
+.react-datepicker__month {
+  font-family: "DiaFontMedium";
+}
 `;
 
 const TopBlock = styled.div`
