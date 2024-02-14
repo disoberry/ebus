@@ -1,17 +1,11 @@
 import styled from "styled-components";
 import background from "../images/bus-table-background.png";
-import {
-  darkGreen,
-  darkGrey,
-  lightGreen,
-  lightGrey,
-  mainGreen,
-} from "./element/utills";
+import { darkGreen, lightGreen, lightGrey, mainGreen } from "./utils/utills";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import OnlineTable from "./element/online-table";
 import { useState } from "react";
-import DatePicker,  { registerLocale } from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import uk from "date-fns/locale/uk";
 registerLocale("uk", uk);
@@ -61,7 +55,10 @@ export default function BusesTable() {
             <i className="fa-solid fa-square" style={{ color: "#ffffff" }}></i>
           </InputSpan>
           <InputSpan className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-9 d-flex align-items-center justify-content-between">
-          <i class="fa-regular fa-calendar-days" style={{ color: `${mainGreen}` }}></i>
+            <i
+              className="fa-regular fa-calendar-days"
+              style={{ color: `${mainGreen}` }}
+            ></i>
 
             <DatePicker
               selected={date}

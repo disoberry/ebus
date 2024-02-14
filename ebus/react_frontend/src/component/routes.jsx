@@ -2,18 +2,14 @@ import { Accordion } from "react-bootstrap";
 import styled from "styled-components";
 import background from "../images/green-line.png";
 import down_arrow_green from "../images/down-arrow-green.png";
-import {
-  darkGreen,
-  darkGrey,
-  lightGreen,
-  lightGrey,
-  mainGreen,
-} from "./element/utills";
+import { darkGreen, darkGrey, lightGreen, mainGreen } from "./utils/utills";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function RoutesPage() {
   const [listRacesBus, setList] = useState([]);
   const [listBus, setBusList] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://127.0.0.1:8000/ebuscont/api/triprace")
       .then((response) => response.json())
@@ -58,30 +54,49 @@ export default function RoutesPage() {
                 </CostBlock>
               </div>
               <div className="row d-flex align-items-center justify-content-lg-between justify-content-md-between justify-content-sm-center justify-content-center">
-                {listRacesBus.map((race)=> ((race.bus_table===bus.id) ? ( 
-                <div key={race.id} className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
-                  <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
-                    <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
-                      <span className="d-flex  justify-content-xl-between justify-content-lg-between justify-content-sm-center m-0 text-xl-start text-lg-start text-md-start text-sm-center text-center">
-                        {race.id} Рейс:
-                        <p
-                          className="m-0 pb-0"
-                          style={{
-                            fontFamily: "DiaFontBold",
-                            paddingLeft: "15px",
-                          }}
-                        >
-                          {race.timeFrom.toString().slice(0, -3)} - {race.timeTo.toString().slice(0, -3)}
-                        </p>
-                      </span>
-                    </span>
-                    <span className="col-xl-4 col-lg-5 col-md-5 col-sm-7 col-7 d-flex m-0 p-0 justify-content-sm-center">
-                      <OrderBtn className="w-100 mx-lg-2 mx-md-2">
-                        Замовити
-                      </OrderBtn>
-                    </span>
-                  </div>
-                </div>) : ("")))}
+                {listRacesBus.map((race) =>
+                  race.bus_table === bus.id ? (
+                    <div
+                      key={race.id}
+                      className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center"
+                    >
+                      <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
+                        <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">
+                          <span className="d-flex  justify-content-xl-between justify-content-lg-between justify-content-sm-center m-0 text-xl-start text-lg-start text-md-start text-sm-center text-center">
+                            {race.id} Рейс:
+                            <p
+                              className="m-0 pb-0"
+                              style={{
+                                fontFamily: "DiaFontBold",
+                                paddingLeft: "15px",
+                              }}
+                            >
+                              {race.timeFrom.toString().slice(0, -3)} -{" "}
+                              {race.timeTo.toString().slice(0, -3)}
+                            </p>
+                          </span>
+                        </span>
+                        <span className="col-xl-4 col-lg-5 col-md-5 col-sm-7 col-7 d-flex m-0 p-0 justify-content-sm-center">
+                          <OrderBtn
+                            className="w-100 mx-lg-2 mx-md-2"
+                            onClick={() => {
+                              navigate("/ticket-registration", {
+                                state: {
+                                  race: race,
+                                  bus: getBusById(race.bus_table),
+                                },
+                              });
+                            }}
+                          >
+                            Замовити
+                          </OrderBtn>
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )
+                )}
                 {/* <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 pt-1 d-flex align-items-center justify-content-sm-center justify-content-center">
                   <div className="w-100 row d-flex align-items-center justify-content-lg-between justify-content-sm-center justify-content-center">
                     <span className="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7 m-0 p-0">

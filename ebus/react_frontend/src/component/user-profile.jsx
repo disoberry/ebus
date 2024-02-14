@@ -5,18 +5,18 @@ import {
   darkGreen,
   darkGrey,
   lightGreen,
-  lightGrey,
+  
   mainGreen,
-} from "./element/utills";
+} from "./utils/utills";
 import user_img from "../images/user-profile.png";
 import quote_1 from "../images/quote 1.png";
 import quote_2 from "../images/quote 2.png";
-import free_icon_bus from "../images/free-icon-bus.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TicketCard from "./element/ticket-card";
-import { Modal, Toast } from "react-bootstrap";
+import { Toast } from "react-bootstrap";
 import "./element/modal-styles.css";
+import { getLinks } from "./element/header";
 
 export default function UserProfile({ link }) {
   const [displayed, setDisplayed] = useState(false);
@@ -45,10 +45,11 @@ export default function UserProfile({ link }) {
     }
   }
   const [show, setShow] = useState(false);
-
   useEffect(() => {
+    getLinks();
     normalizeTabs(link);
-  }, []);
+  }, [link]);
+
   return (
     <Block className="row m-0 w-100 justify-content-center">
       <div className="col-xl-9 col-lg-10 col-md-11 col-sm-11 col-11 ">
@@ -122,9 +123,12 @@ export default function UserProfile({ link }) {
                     setTimeout(() => {
                       setShow(false);
                       localStorage.removeItem("user");
+                      getLinks();
                       document.getElementById("check-user").innerText =
                         "Увійти";
                       navigate("/");
+            window.location.reload()
+
                     }, 2000);
                   }}
                 >
@@ -153,29 +157,12 @@ export default function UserProfile({ link }) {
             <div className="w-100 py-4">
               <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
                 <TicketCard status={"Не активований"} />
-                <span className="ticket-activator col-xl-4 col-lg-4 col-md-6 col-sm-8 col-8 d-flex flex-column align-items-center">
-                  {/* <button
-                    className={`my-2 ${
-                      status === "Не дійсний" ? "not-valid-btn" : ""
-                    }`}
-                  >
-                    {status === "Не дійсний" ? "Оплачено" : "Оплатити"}
-                  </button>
-                  {status !== "Не дійсний" ? <p>Залишилося 9:41 хв.</p> : <></>} */}
-                  <button className={`my-2`}>Оплатити</button>
-                </span>
               </div>
               <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
                 <TicketCard status={"Не дійсний"} />
-                <span className="ticket-activator col-xl-4 col-lg-4 col-md-6 col-sm-8 col-8 d-flex flex-column align-items-center">
-                  <button className={`my-2 not-valid-btn`}>Оплачено</button>
-                </span>
               </div>
               <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
                 <TicketCard status={"Не дійсний"} />
-                <span className="ticket-activator col-xl-4 col-lg-4 col-md-6 col-sm-8 col-8 d-flex flex-column align-items-center">
-                  <button className={`my-2 not-valid-btn`}>Оплачено</button>
-                </span>
               </div>
             </div>
             <span className="d-flex align-items-center pt-3">
@@ -225,6 +212,7 @@ export default function UserProfile({ link }) {
 
 const TicketsTab = styled.div`
   min-height: 60vh;
+  padding-bottom: 2em;
   a,
   p {
     font-size: 1.1em;

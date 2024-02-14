@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from "../../images/e-avtobus-logo.png";
 import styled, { css } from "styled-components";
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { darkGrey, lightGreen, mainGreen } from "./utills";
+import { Nav, Navbar } from "react-bootstrap";
+import { darkGrey, lightGreen, mainGreen } from "../utils/utills";
 import { useEffect } from "react";
 
 export function checkingExpiryDate() {
@@ -21,15 +21,24 @@ export function checkingExpiryDate() {
   }
 }
 
+export function getLinks() {
+  document
+    .getElementById("link-check-user")
+    .setAttribute("href", checkingExpiryDate() ? "/user" : "/sign-in");
+  document
+    .getElementById("link-bus-table")
+    .setAttribute("href", checkingExpiryDate() ? "/bus-table" : "/sign-in");
+  document
+    .getElementById("link-routes")
+    .setAttribute("href", checkingExpiryDate() ? "/routes" : "/sign-in");
+}
+
 export default function Header() {
   useEffect(() => {
-    // if (localStorage.getItem("user") != null) {
-    //   checkingExpiryDate();
-    // }
-    console.log(localStorage.getItem("user")===null)
-    document.getElementById("check-user").innerText =
-      checkingExpiryDate() ? "Кабінет" : "Увійти";
-      document.getElementById("link-check-user").setAttribute("to", checkingExpiryDate() ? "/user" : "/sign-in")
+    document.getElementById("check-user").innerText = checkingExpiryDate()
+      ? "Кабінет"
+      : "Увійти";
+    getLinks();
   }, []);
   return (
     <Block collapseOnSelect expand="lg">
@@ -45,10 +54,18 @@ export default function Header() {
       </div>
       <Navbar.Collapse className="" id="responsive-navbar-nav">
         <Nav className="me-auto items-bar">
-          <Link className="item-link" to={localStorage.getItem("user") === null ? "/sign-in" : "/buses-table"}>
+          <Link
+            id={"link-bus-table"}
+            className="item-link"
+            to={checkingExpiryDate() === true ? "/buses-table" : "/sign-in"}
+          >
             Табло Автобусів
           </Link>
-          <Link className="item-link" to={localStorage.getItem("user") === null ? "/sign-in" : "/routes"}>
+          <Link
+            id={"link-routes"}
+            className="item-link"
+            to={checkingExpiryDate() === true ? "/routes" : "/sign-in"}
+          >
             Маршрути
           </Link>
           <Link className="item-link" to={"/contacts"}>
@@ -57,7 +74,10 @@ export default function Header() {
           <Link className="item-link" to={"/about-us"}>
             Про нас
           </Link>
-          <Link id={"link-check-user"} to={checkingExpiryDate() ? "/user" : "/sign-in"}>
+          <Link
+            id={"link-check-user"}
+            to={checkingExpiryDate() === true ? "/user" : "/sign-in"}
+          >
             <Btn id={"check-user"}></Btn>
           </Link>
         </Nav>

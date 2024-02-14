@@ -2,7 +2,7 @@ import styled from "styled-components";
 import TicketCard from "./element/ticket-card";
 import quote_1 from "../images/quote 1.png";
 import quote_2 from "../images/quote 2.png";
-import { MainButton, NotValidBtn, lightGreen } from "./element/utills";
+import { MainButton, NotValidBtn, lightGreen } from "./utils/utills";
 import { Link } from "react-router-dom";
 
 export default function ReadyTicket() {

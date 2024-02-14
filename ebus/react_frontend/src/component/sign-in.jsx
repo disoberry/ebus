@@ -6,12 +6,13 @@ import {
   darkGrey,
   lightGrey,
   mainGreen,
-} from "./element/utills";
+} from "./utils/utills";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { validateEmail, validatePassword } from "./element/validation";
 import { ErrorText } from "./Sign-up";
 import { Toast } from "react-bootstrap";
+import { getLinks } from "./element/header";
 
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,13 +42,15 @@ export default function SignIn() {
         .then((response) => {
           const data = response.json();
           status = response.status;
-          return data;          
+          return data;
         })
         .then((data) => {
           if (status === 200) {
             localStorage.setItem("user", JSON.stringify(data));
             document.getElementById("check-user").innerText = "Кабінет";
+            getLinks();
             navigate("/user");
+            window.location.reload()
           } else {
             setShow(true);
             setError("Помилка");

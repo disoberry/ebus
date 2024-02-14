@@ -1,6 +1,6 @@
 import background from "../images/image 4.png";
 import styled from "styled-components";
-import { darkGreen } from "./element/utills";
+import { darkGreen } from "./utils/utills";
 import ticket_icon from "../images/icons-services/ticket.png";
 import card_icon from "../images/icons-services/credit-card.png";
 import wifi_icon from "../images/icons-services/wifi.png";

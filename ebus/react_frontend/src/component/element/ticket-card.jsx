@@ -1,7 +1,6 @@
 import QRCode from "react-qr-code";
 import styled from "styled-components";
-import { MainButton, darkGreen, lightGrey } from "./utills";
-import { Router } from "react-router-dom";
+import { darkGreen } from "../utils/utills";
 
 export default function TicketCard({ status }) {
   return (
@@ -66,8 +65,7 @@ const Card = styled.div`
   }
 `;
 
-{
-  /* <TicketCard className="row w-100 m-0 mb-2 justify-content-center align-items-center">
+/* <TicketCard className="row w-100 m-0 mb-2 justify-content-center align-items-center">
                 <div className="mainblock col-xl-6 col-lg-7 col-md-8 col-sm-10 col-12">
                   <div className="row">
                     <section className="col-7 d-flex flex-column justify-content-center">
@@ -98,7 +96,7 @@ const Card = styled.div`
                   <button className="my-2 not-valid-btn">Оплачено</button>
                 </span>
               </TicketCard> */
-}
+
 // const TicketCard = styled.div`
 //   .mainblock {
 //     border: 2px solid ${darkGreen};

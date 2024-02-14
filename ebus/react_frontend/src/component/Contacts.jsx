@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkGreen, mainGreen } from "./element/utills";
+import { darkGreen, mainGreen } from "./utils/utills";
 import background from "../images/image 4.png";
 
 export default function Contacts() {

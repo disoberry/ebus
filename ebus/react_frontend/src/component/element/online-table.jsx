@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkGreen, mainGreen } from "./utills";
+import { darkGreen, mainGreen } from "../utils/utills";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -54,6 +54,7 @@ export default function OnlineTable() {
         // console.log(item);
         bus = item;
       }
+      return bus;
     });
     return bus;
   }
@@ -85,7 +86,6 @@ export default function OnlineTable() {
     timeTo: null,
     date: null,
   });
-  console.log(listRacesBus);
 
   return (
     <AdaptiveTable className="row w-100">
@@ -156,7 +156,7 @@ export default function OnlineTable() {
                           }
                     }
                   >
-                    Знайти квиток
+                    Замовити квиток
                   </button>
                 </td>
               </tr>

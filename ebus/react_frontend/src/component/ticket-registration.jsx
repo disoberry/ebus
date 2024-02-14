@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MainButton, darkGreen } from "./element/utills";
+import { MainButton, darkGreen } from "./utils/utills";
 import TicketBus from "./element/ticket-bus";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -19,11 +19,15 @@ export default function TicketRegistration() {
   const { state } = useLocation();
 
   const checkSeat = (item) => {
-    console.log(item);
-    document.getElementById("selected-seat").innerText = item;
-    item.length > 1
-      ? (document.getElementById("text-select").innerText = "Вибрані місця: ")
-      : (document.getElementById("text-select").innerText = "Вибране місце: ");
+    let seattag = document.getElementById("selected-seat");
+    let string = "";
+    item.map((seat) => (string += `${seat}, `));
+    seattag.innerText = string.substring(0, string.length - 2);
+    document.getElementById("text-select").innerText =
+      item.length > 1 ? "Вибрані місця: " : "Вибране місце: ";
+    item.length > 6
+      ? seattag.parentElement.classList.add("flex-column")
+      : seattag.parentElement.classList.remove("flex-column");
   };
 
   useEffect(() => {
@@ -51,10 +55,10 @@ export default function TicketRegistration() {
           </span>
           <p>Відправка о {race.timeFrom}</p>
           <p>Прибуття о {race.timeTo}</p>
-          <span className="d-flex align-items-center w-100 px-1 py-2 mx-1">
+          <span className="d-flex w-100 px-1 py-2 mx-1">
             <b id="text-select">Вибране місце:</b>{" "}
-            <span id="selected-seat" className="px-2 py-0 my-0">
-              {" "}
+            <span id="selected-seat" className=" py-0 my-0">
+              {"  "}
             </span>
           </span>
         </div>
@@ -78,6 +82,10 @@ export default function TicketRegistration() {
 }
 
 const Block = styled.div`
+  #selected-seat {
+    max-width: 200px;
+    line-height: 2em;
+  }
   font-family: "DiaFontLight";
   h3 {
     font-family: "DiaFontBold";

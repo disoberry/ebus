@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darkGreen, lightGreen, mainGreen } from "./utills";
+import { darkGreen, lightGreen, mainGreen } from "../utils/utills";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
