@@ -15,7 +15,7 @@ class TripRaceListCreate(generics.ListCreateAPIView):
     queryset = BusTrip.objects.all()
     serializer_class = TripRaceSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filterset_fields = ('bus_table__fromWhere', 'bus_table__toWhere',)
+    filterset_fields = ('bus_table__fromWhere', 'bus_table__toWhere', 'freeSeats', 'date')
 
 class TicketListCreate(generics.ListCreateAPIView):
     queryset = Ticket.objects.all()
