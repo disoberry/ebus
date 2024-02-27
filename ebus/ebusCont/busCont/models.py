@@ -10,14 +10,8 @@ class BusTableM(models.Model):
     # raceNum = models.IntegerField()
     fromWhere = models.TextField()
     toWhere = models.TextField()
-
-
-
-
     platform = models.IntegerField()
     status = models.BooleanField()
-
-
 
     # ch8 = "8:00"
     # ch9 = "9:00"
@@ -52,6 +46,7 @@ class BusTrip(models.Model):
     timeFrom = models.TimeField()
     timeTo = models.TimeField()
     date = models.DateField()
+
 
 class Ticket(models.Model):
 
