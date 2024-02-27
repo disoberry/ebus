@@ -25,17 +25,17 @@ export default function Footer() {
             className="mt-2 row w-100 m-0 mainBlock justify-content-center"
             style={{ boxShadow: `0px 0px 3px 2px ${lightGreen}` }}
           >
-            <div className="col-xl-4 col-lg-4 col-12 my-2">
+            <div className="col-xl-3 col-lg-4 col-12 my-2">
               <h5>Про компанію</h5>
               <p>Про нас</p>
               <p>Контакти</p>
             </div>
-            <div className="col-xl-4 col-lg-4 col-12 my-2">
+            <div className="col-xl-3 col-lg-4 col-12 my-2">
               <h5>Користувачам</h5>
               <p>Питання і відповіді</p>
               <p>Розташування</p>
             </div>
-            <div className="col-xl-4 col-lg-4 col-12 my-2">
+            <div className="col-xl-3 col-lg-4 col-12 my-2">
               <h5>Наші партнери</h5>
               <p>MaRKIV</p>
               <p>НУВГП</p>

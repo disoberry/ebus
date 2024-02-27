@@ -3,36 +3,6 @@ import { darkGreen, mainGreen } from "../utils/utills";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// const data = [
-//   {
-//     id: 1,
-//     departureTime: "09:15",
-//     from: "Рівне",
-//     to: "Київ",
-//     arrivalTime: "14:20",
-//     platform: 28,
-//     status: "Відбув",
-//   },
-//   {
-//     id: 2,
-//     departureTime: "10:45",
-//     from: "Рівне",
-//     to: "Дубно",
-//     arrivalTime: "12:15",
-//     platform: 5,
-//     status: "Очікується",
-//   },
-//   {
-//     id: 3,
-//     departureTime: "11:00",
-//     from: "Рівнe",
-//     to: "Дачі",
-//     arrivalTime: "11:55",
-//     platform: 118,
-//     status: "Прибув",
-//   },
-// ];
-
 export default function OnlineTable() {
   const [listRacesBus, setList] = useState([]);
   const [listBus, setBusList] = useState([]);

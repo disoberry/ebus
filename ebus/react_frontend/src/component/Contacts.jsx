@@ -1,18 +1,9 @@
 import styled from "styled-components";
 import { darkGreen, mainGreen } from "./utils/utills";
 import background from "../images/image 4.png";
+import { days } from "./utils/data";
 
 export default function Contacts() {
-  const days = [
-    "понеділок",
-    "вівторок",
-    "середа",
-    "четвер",
-    "п’ятниця",
-    "субота",
-    "неділя",
-  ];
-
   return (
     <>
       <img src={background} alt="background" className="w-100" />
