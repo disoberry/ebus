@@ -7,8 +7,7 @@ class LeadSerializer(serializers.ModelSerializer):
         model = BusTableM
 
         fields = ('id' ,'price', 'fromWhere', 'toWhere', 
-                  'platform', 'status')
-
+                  'platform', 'status',)
         # 'raceNum',
 
 

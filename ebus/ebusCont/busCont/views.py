@@ -8,13 +8,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 class LeadListCreate(generics.ListCreateAPIView):
     queryset = BusTableM.objects.all()
     serializer_class = LeadSerializer
-    filter_backends = (DjangoFilterBackend, SearchFilter)
-    filterset_fields = ('fromWhere', 'toWhere')
+
 
 
 class TripRaceListCreate(generics.ListCreateAPIView):
     queryset = BusTrip.objects.all()
     serializer_class = TripRaceSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filterset_fields = ('bus_table__fromWhere', 'bus_table__toWhere', 'freeSeats', 'date')
 
 class TicketListCreate(generics.ListCreateAPIView):
     queryset = Ticket.objects.all()

@@ -8,7 +8,11 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
+<<<<<<< HEAD
 set VIRTUAL_ENV=D:\нувгп\ІПЗ-31\менеджмент\ebus
+=======
+set VIRTUAL_ENV=X:\Projects\GitHub-Clones\ebus\ebus
+>>>>>>> 21ec2ab1d76819dfe6de35baa49d0626b38aeee8
 
 if not defined PROMPT set PROMPT=$P$G
 
