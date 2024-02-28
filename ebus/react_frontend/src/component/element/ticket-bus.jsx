@@ -17,11 +17,13 @@ export default function TicketBus({ checkSeat }) {
   const [secondRow, setSecondRow] = useState([]);
   const [lastRow, setLastRow] = useState([]);
   const checkCurrentSeat = (item) => {
+    checkSeat([]);
     checkSeat(item);
   };
   const { state } = useLocation();
 
   useEffect(() => {
+    seats = [];
     setBusSeats();
   }, []);
 
@@ -103,7 +105,7 @@ const SeatElem = ({ id, checkCurrentSeat, isReserved }) => {
       e.target.style.borderColor = `#000`;
       e.target.style.color = "#000";
     } else {
-      seats.push(e.target.textContent);
+      seats.push((e.target.textContent));
       e.target.style.boxShadow = `0 0 2px 1px ${mainGreen}`;
       e.target.style.backgroundColor = `${darkGreen}`;
       e.target.style.borderColor = "transparent";
@@ -128,7 +130,7 @@ const SeatElem = ({ id, checkCurrentSeat, isReserved }) => {
         isReserved ? (e.target.style.cursor = "default") : "default"
       }
     >
-      {id}{" "}
+      {id}
     </button>
   );
 };

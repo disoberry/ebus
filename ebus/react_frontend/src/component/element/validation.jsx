@@ -44,3 +44,11 @@ export function validatePassword(password) {
   }
   return text;
 }
+
+export function validateSearch(from, to, date, person) {
+  if (from === "" || to === "" || date === new Date()) {
+    return false;
+  } else {
+    return true;
+  }
+}

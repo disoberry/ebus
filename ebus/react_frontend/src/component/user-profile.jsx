@@ -14,8 +14,9 @@ import quote_2 from "../images/quote 2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TicketCard from "./element/ticket-card";
+import free_icon_bus from '../images/free-icon-bus.png'
 import { Toast } from "react-bootstrap";
-import "./element/modal-styles.css";
+import "./style/modal-styles.css";
 import { getLinks } from "./element/header";
 
 export default function UserProfile({ link }) {
@@ -129,7 +130,7 @@ export default function UserProfile({ link }) {
                       navigate("/");
             window.location.reload()
 
-                    }, 2000);
+                    }, 1000);
                   }}
                 >
                   Вихід з профілю
@@ -145,7 +146,7 @@ export default function UserProfile({ link }) {
             aria-labelledby="tickets-tab"
           >
             {/* if user doesnt have tickets */}
-            {/* <div
+            <div
               className="w-100 d-flex flex-column align-items-center justify-content-center"
               style={{ height: "60vh" }}
             >
@@ -153,17 +154,17 @@ export default function UserProfile({ link }) {
               <p className="m-0 text-center">
                 У Вас поки що немає придбаних квитків.
               </p>
-            </div> */}
+            </div>
             <div className="w-100 py-4">
-              <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
-                <TicketCard status={"Не активований"} />
+              {/* <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
+                <TicketCard  status={"Не активований"} />
               </div>
               <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
                 <TicketCard status={"Не дійсний"} />
               </div>
               <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
                 <TicketCard status={"Не дійсний"} />
-              </div>
+              </div> */}
             </div>
             <span className="d-flex align-items-center pt-3">
               <i

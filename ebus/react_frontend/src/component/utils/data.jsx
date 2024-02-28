@@ -17,6 +17,27 @@ import paperbag_icon from "../../images/icons-services/paper-bag.png";
 import nuwee_logo from "../../images/nuwee-logo.png";
 import markiv_logo from "../../images/markiv 1.png";
 
+export const searchingData = [
+  {
+    id: 1,
+    departureTime: "5:00",
+    from: "Рівне",
+    to: "Дубно",
+    arrivalTime: "6:15",
+    price: "80",
+    date: "2024-02-15",
+  },
+  {
+    id: 2,
+    departureTime: "15:00",
+    from: "Рівне",
+    to: "Дубно",
+    arrivalTime: "16:15",
+    price: "75",
+    date: "2024-02-15",
+  },
+];
+
 export const dropdownValues = [
   { value: 1, label: 1 },
   { value: 2, label: 2 },

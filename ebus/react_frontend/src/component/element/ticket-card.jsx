@@ -1,8 +1,9 @@
 import QRCode from "react-qr-code";
 import styled from "styled-components";
-import { darkGreen } from "../utils/utills";
+import { darkGreen, mainGreen } from "../utils/utills";
+import { getCorrectDate } from "../Ticket-registration";
 
-export default function TicketCard({ status }) {
+export default function TicketCard({ race, bus, seat }) {
   return (
     <Card
       className={`${
@@ -13,26 +14,32 @@ export default function TicketCard({ status }) {
     >
       <div className="row">
         <section className="col-7 d-flex flex-column justify-content-center">
-          <h2>Рівне - Київ</h2>
-          <p>Рейс - 1</p>
-          <p>Відправка о 18:00 </p>
-          <p>Прибуття о 22:10 </p>
-          <p>Місце : 58</p>
+          <h2>
+            {bus.fromWhere} – {bus.toWhere}
+          </h2>
+          <p>Рейс - {race.id}</p>
+          <p>Відправка о {race.timeFrom} </p>
+          <p>Прибуття о {race.timeTo} </p>
+          <p>Місце : {seat}</p>
           <span className="pt-2 d-flex align-items-center">
-            Cтатус:<h5>{status}</h5>
+            Cтатус:<h5>Активний</h5>
           </span>
         </section>
         <section className="col-5 d-flex flex-column align-items-center justify-content-center m-0 p-0">
           <QRCode
             style={{ height: "70%", width: "70%" }}
             title=""
-            value={"Rivne-Kyiv, flight:1, seat:58, user:Iryna"}
+            value={`${bus.fromWhere}–${bus.toWhere}, race:${
+              race.id
+            }, seat:${seat}, user:${
+              JSON.parse(localStorage.getItem("user")).user.email
+            }`}
             bgColor="#000"
             fgColor={"#fff"}
             // size={size === "" ? 0 : size}
           />
-          <p style={{ margin: "0; !important" }}>ID 0000001</p>
-          <p style={{ margin: "0; !important" }}>16.11.2023</p>
+          <p style={{ margin: "0; !important" }}>ID 000000{seat}</p>
+          <p style={{ margin: "0; !important" }}>{getCorrectDate(race.date)}</p>
         </section>
       </div>
     </Card>
@@ -43,6 +50,7 @@ const Card = styled.div`
   border: 2px solid ${darkGreen};
   padding: 1em;
   margin: 1em;
+  margin-left: 1em;
   margin-bottom: 0;
   color: #000;
   div {
@@ -60,6 +68,7 @@ const Card = styled.div`
         font-family: "DiaFontBold";
         margin: 0;
         padding-left: 0.5em;
+        color: ${darkGreen};
       }
     }
   }

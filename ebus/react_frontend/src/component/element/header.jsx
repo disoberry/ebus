@@ -9,7 +9,6 @@ export function checkingExpiryDate() {
   if (localStorage.getItem("user") != null) {
     var date = new Date(JSON.parse(localStorage.getItem("user")).expiry);
     const today = new Date();
-    console.log();
     if (date.toLocaleDateString() === today.toLocaleDateString()) {
       localStorage.removeItem("user");
       return false;
@@ -44,7 +43,9 @@ export default function Header() {
     <Block collapseOnSelect expand="lg">
       <div className="d-flex align-items-center justify-content-between">
         <Navbar.Brand>
-          <img src={logo} alt="logo" />
+          <Link to={"/"}>
+            <img src={logo} alt="logo" />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav">
           <span></span>

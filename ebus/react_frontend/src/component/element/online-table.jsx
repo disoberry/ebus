@@ -126,7 +126,7 @@ export default function OnlineTable() {
                           }
                     }
                   >
-                    Замовити квиток
+                    Замовити
                   </button>
                 </td>
               </tr>

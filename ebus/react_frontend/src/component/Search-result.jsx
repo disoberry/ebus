@@ -2,38 +2,21 @@ import { TopBlock } from "./Bus-table";
 import SearchBlock from "./element/search-block";
 import styled from "styled-components";
 import { darkGreen, lightGrey, mainGreen } from "./utils/utills";
-
-export const searchingData = [
-  {
-    id: 1,
-    departureTime: "5:00",
-    from: "Рівне",
-    to: "Дубно",
-    arrivalTime: "6:15",
-    price: "80",
-    date: "2024-02-15",
-  },
-  {
-    id: 2,
-    departureTime: "15:00",
-    from: "Рівне",
-    to: "Дубно",
-    arrivalTime: "16:15",
-    price: "75",
-    date: "2024-02-15",
-  },
-];
+import { useLocation } from "react-router-dom";
+import { searchingData } from "./utils/data";
 
 export default function SearchResult() {
+  const { state } = useLocation();
+
   return (
     <div>
       <TopBlock className="w-100 d-flex align-items-center justify-content-center">
-        <SearchBlock />
+        <SearchBlock data={state.search} />
       </TopBlock>
       <div className="w-100 d-flex flex-column align-items-center py-1">
         <TitleBlock className="d-flex flex-column align-items-center">
           <h5>Розклад автобусів за маршрутом:</h5>
-          <h6>“Рівне - Дубно”</h6>
+          <h6>“{state.search.from} - {state.search.to}”</h6>
         </TitleBlock>
         {searchingData.map((item) => (
           <BusSearchItem key={item.id} data={item} />
@@ -118,7 +101,7 @@ const BusSearchItemSt = styled.div`
 `;
 
 const TitleBlock = styled.span`
-margin: 1em 0;
+  margin: 1em 0;
   & > * {
     font-family: "DiaFontRegular";
     font-size: 1.4em;
@@ -127,7 +110,6 @@ margin: 1em 0;
   h6 {
     font-family: "DiaFontMedium";
     color: ${mainGreen};
-font-size: 1.5em;
-
+    font-size: 1.5em;
   }
 `;

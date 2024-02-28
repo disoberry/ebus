@@ -1,33 +1,48 @@
 import styled from "styled-components";
 import { MainButton, darkGreen } from "./utils/utills";
 import TicketBus from "./element/ticket-bus";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Toast } from "react-bootstrap";
+import "./style/modal-styles.css";
 
-function getCorrectDate(date) {
+export function getCorrectDate(date) {
   let correct = new Date(date);
-  return `${("0" + correct.getDate()).slice(-2)}. ${(
+  return `${("0" + correct.getDate()).slice(-2)}.${(
     "0" +
     (correct.getMonth() + 1)
-  ).slice(-2)}. ${correct.getUTCFullYear()}`;
+  ).slice(-2)}.${correct.getUTCFullYear()}`;
 }
 
 export default function TicketRegistration() {
-  // const [seat, setSeat] = useState(0);
+  let seats = [];
+  const [res, setRes] = useState([]);
   const [bus, setBus] = useState({});
   const [race, setRace] = useState({});
+  const [show, setShow] = useState(false);
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const checkSeat = (item) => {
+    seats = [];
     let seattag = document.getElementById("selected-seat");
     let string = "";
-    item.map((seat) => (string += `${seat}, `));
+    item.map((seat) => {
+      seats.push(seat);
+      string += `${seat}, `;
+    });
+    setRes(seats);
     seattag.innerText = string.substring(0, string.length - 2);
     document.getElementById("text-select").innerText =
       item.length > 1 ? "Вибрані місця: " : "Вибране місце: ";
-    item.length > 6
-      ? seattag.parentElement.classList.add("flex-column")
-      : seattag.parentElement.classList.remove("flex-column");
+    if (item.length > 6) {
+      seattag.parentElement.classList.remove("align-items-center");
+      seattag.parentElement.classList.add("flex-column");
+      seattag.parentElement.classList.add("align-items-start");
+    } else {
+      seattag.parentElement.classList.remove("flex-column");
+      seattag.parentElement.classList.remove("align-items-start");
+    }
   };
 
   useEffect(() => {
@@ -42,7 +57,7 @@ export default function TicketRegistration() {
         <div className="info-div d-flex flex-column justify-content-between pt-4">
           <span className="d-flex align-items-center pb-2">
             <i className="fa-solid fa-route fa-2xl"></i>
-            <h4 className="m-0 px-3">{`${bus.fromWhere} – ${bus.toWhere}`}</h4>
+            <h4 className="m-0 px-3">{bus.fromWhere} – {bus.toWhere}</h4>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p className="my-0">Рейс - {race.id}</p>
@@ -55,7 +70,7 @@ export default function TicketRegistration() {
           </span>
           <p>Відправка о {race.timeFrom}</p>
           <p>Прибуття о {race.timeTo}</p>
-          <span className="d-flex w-100 px-1 py-2 mx-1">
+          <span className="d-flex align-items-center w-100 px-1 py-2 mx-1">
             <b id="text-select">Вибране місце:</b>{" "}
             <span id="selected-seat" className=" py-0 my-0">
               {"  "}
@@ -74,9 +89,57 @@ export default function TicketRegistration() {
           />
         </span>
       </div>
-      <Link to={"/ready-ticket"}>
-        <Btn>Замовити квиток</Btn>
-      </Link>
+      {/* <Link to={"/ready-ticket"}> */}
+      <Btn
+        onMouseEnter={(e) => {
+          res.length === 0
+            ? (e.currentTarget.style.cursor = "not-allowed")
+            : (e.currentTarget.style.cursor = "pointer");
+        }}
+        onClick={() => {
+          if (res.length === 0) {
+            setShow(true);
+            setTimeout(() => {
+              setShow(false);
+            }, 1500);
+          } else {
+            console.log(res);
+            navigate("/ready-ticket", {
+              state: {
+                seats: res,
+                bus: bus,
+                race: race,
+              },
+            });
+          }
+        }}
+      >
+        Замовити квиток
+      </Btn>
+      {/* </Link> */}
+      <Toast
+        className={""}
+        onClose={() => setShow(false)}
+        show={show}
+        // delay={3000}
+        // autohide
+      >
+        {/*  */}
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <p className="m-0 me-auto">Сповіщення</p>
+          {/* <small>11 mins ago</small> */}
+        </Toast.Header>
+        <Toast.Body className="p-2 d-flex align-items-center">
+          <i
+            className="fa-solid fa-circle-exclamation fa-xl"
+            style={{ color: "red" }}
+          ></i>
+          <p className="m-0 px-2" style={{ fontSize: "1.2em" }}>
+            Виберіть хоча б одне місце, щоб продовжити.
+          </p>
+        </Toast.Body>
+      </Toast>
     </Block>
   );
 }
