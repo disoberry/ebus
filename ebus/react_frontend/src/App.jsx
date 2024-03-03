@@ -12,6 +12,7 @@ import ReadyTicket from "./component/Ready-ticket";
 import Contacts from "./component/Contacts";
 import AboutUs from "./component/About-us";
 import SearchResult from "./component/Search-result";
+import MaRKIV_Team from "./component/MaRKIV-team";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/routes" element={<RoutesPage />} />
           <Route exact path="/contacts" element={<Contacts />} />
           <Route exact path="/about-us" element={<AboutUs />} />
+          <Route exact path="/markiv-team" element={<MaRKIV_Team />} />
         </Routes>
       </Layout>
     </>

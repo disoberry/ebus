@@ -40,7 +40,7 @@ export default function AboutUs() {
                   {item.name}
                 </p>
               </span>
-              <Link className=""><button className="w-100">{item.shortName}</button></Link>
+              <Link to={item.link} className=""><button className="w-100">{item.shortName}</button></Link>
             </PartnerCard>
             ))}            
           </div>
