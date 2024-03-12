@@ -18,8 +18,8 @@ export default function TicketCard({ race, bus, seat }) {
             {bus.fromWhere} – {bus.toWhere}
           </h2>
           <p>Рейс - {race.id}</p>
-          <p>Відправка о {race.timeFrom} </p>
-          <p>Прибуття о {race.timeTo} </p>
+          <p>Відправка о {race.timeFrom.slice(0, 5)} </p>
+          <p>Прибуття о {race.timeTo.slice(0, 5)} </p>
           <p>Місце : {seat}</p>
           <span className="pt-2 d-flex align-items-center">
             Cтатус:<h5>Активний</h5>

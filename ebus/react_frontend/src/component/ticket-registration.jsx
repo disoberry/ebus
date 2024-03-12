@@ -72,7 +72,7 @@ export default function TicketRegistration() {
           <p>Прибуття о {race.timeTo}</p>
           <span className="d-flex align-items-center w-100 px-1 py-2 mx-1">
             <b id="text-select">Вибране місце:</b>{" "}
-            <span id="selected-seat" className=" py-0 my-0">
+            <span id="selected-seat" className="px-1 py-0 my-0">
               {"  "}
             </span>
           </span>

@@ -25,12 +25,37 @@ export default function SearchBlock({ data }) {
   const [person, setPerson] = useState(
     data === undefined ? { value: 1, label: 1 } : data.person
   );
-
+  let array = [];
   function handleFocus(e) {
     e.target.parentElement.style.boxShadow = `0 0 2px 4px ${mainGreen}`;
   }
   function handleBlur(e) {
     e.target.parentElement.style.boxShadow = `none`;
+  }
+
+  function checkFreeSeats() {
+    fetch(
+      `http://127.0.0.1:8000/ebuscont/api/triprace?bus_table__fromWhere=${from}&bus_table__toWhere=${to}&date=${date
+        .toISOString()
+        .slice(0, 10)}`
+    )
+      .then((response) => response.json())
+      .then((data) =>
+        data.map((item) => {
+          if (item.freeSeats.length >= person.value) {
+            array.push({
+              id: item.id,
+              departureTime: item.timeFrom,
+              from: "string",
+              to: "string",
+              arrivalTime: item.timeTo,
+              price: "50",
+              date: item.date,
+            });
+          }
+        })
+      );
+    return array.length === 0 ? false : true;
   }
 
   return (
@@ -83,7 +108,7 @@ export default function SearchBlock({ data }) {
         ></i>
 
         <DatePicker
-        className="px-2"
+          className="px-2"
           selected={date}
           onChange={(date) => {
             setDate(date);
@@ -138,16 +163,25 @@ export default function SearchBlock({ data }) {
         className="col-xl-2 col-lg-2 col-md-5 col-sm-9 col-9"
         onClick={() => {
           if (validateSearch(from, to, date, person)) {
-            navigate("/buses-table/search-result", {
-              state: {
-                search: {
-                  from: from,
-                  to: to,
-                  date: date,
-                  person: person,
+            if (checkFreeSeats()) {
+              console.log(array);
+              navigate("/buses-table/search-result", {
+                state: {
+                  search: {
+                    from: from,
+                    to: to,
+                    date: date,
+                    person: person,
+                  }
                 },
-              },
-            });
+              });
+              document.location.reload()
+            } else {
+              setShow(true);
+               setTimeout(() => {
+                setShow(false);
+              }, 2800);
+            }
           } else {
             setShow(true);
             setTimeout(() => {
@@ -167,17 +201,17 @@ export default function SearchBlock({ data }) {
       >
         {/*  */}
         <Toast.Header>
-          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <p className="m-0 me-auto">Сповіщення</p>
-          {/* <small>11 mins ago</small> */}
-        </Toast.Header>
-        <Toast.Body className="p-2 d-flex align-items-center">
+          {/* <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" /> */}
           <i
             className="fa-solid fa-circle-exclamation fa-xl"
             style={{ color: "red" }}
           ></i>
+          <p className="px-1 m-0 me-auto">Сповіщення</p>
+          {/* <small>11 mins ago</small> */}
+        </Toast.Header>
+        <Toast.Body className="p-2 d-flex align-items-center">
           <p className="m-0 px-2" id="toast-text" style={{ fontSize: "1.2em" }}>
-            Заповніть всі поля для коректного пошуку рейсів.
+            {checkFreeSeats() ? "Кількість місць, яку ви ввели, недоступні для бронювання." : "Заповніть всі поля для коректного пошуку рейсів."}
           </p>
         </Toast.Body>
       </Toast>
