@@ -31,7 +31,7 @@ export default function AboutUs() {
               крок зроблений разом, має вагоме значення.
             </p>
           </span>
-          <div className="row w-100 align-items-start justify-content-center">
+          <div className="row w-100 align-items-start justify-content-around">
             {partners.map((item)=> (
             <PartnerCard className="p-0 col-xl-5 col-lg-8 col-md-9 col-xs-10 col-12 d-flex flex-column justify-content-between">
               <span className="row d-flex align-items-center justify-content-center">
@@ -40,14 +40,14 @@ export default function AboutUs() {
                   {item.name}
                 </p>
               </span>
-              <Link className=""><button className="w-100">{item.shortName}</button></Link>
+              <Link to={item.link} className=""><button className="w-100">{item.shortName}</button></Link>
             </PartnerCard>
             ))}            
           </div>
         </div>
       </OurPartnersDiv>
       <ServicesDiv className="d-flex flex-column align-items-center">
-        <h5 className="mb-3">Доступні послуги Автовокзалу “Андріївський”</h5>
+        <h5 className="mb-3 text-center">Доступні послуги Автовокзалу “Андріївський”</h5>
         <div className="d-flex flex-wrap w-75 justify-content-between">
           {services.map((item) => (
             <div key={services.indexOf(item)}>
@@ -172,4 +172,5 @@ const Desc = styled.p`
   font-family: "DiaFontLight";
   font-size: 1.35em;
   border-bottom: 3px solid ${darkGreen};
+  text-align: center;
 `;

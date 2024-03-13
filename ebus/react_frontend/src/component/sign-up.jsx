@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { validateEmail, validatePassword } from "./element/validation";
 import styled from "styled-components";
 import { Toast } from "react-bootstrap";
-import "./element/modal-styles.css";
+import "./style/modal-styles.css";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);

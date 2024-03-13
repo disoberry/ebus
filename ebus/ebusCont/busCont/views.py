@@ -20,3 +20,5 @@ class TripRaceListCreate(generics.ListCreateAPIView):
 class TicketListCreate(generics.ListCreateAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filterset_fields = ('ticket_owner__email',)

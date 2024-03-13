@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/e-avtobus-logo.png";
 import styled, { css } from "styled-components";
 import { Nav, Navbar } from "react-bootstrap";
@@ -9,7 +9,6 @@ export function checkingExpiryDate() {
   if (localStorage.getItem("user") != null) {
     var date = new Date(JSON.parse(localStorage.getItem("user")).expiry);
     const today = new Date();
-    console.log();
     if (date.toLocaleDateString() === today.toLocaleDateString()) {
       localStorage.removeItem("user");
       return false;
@@ -34,55 +33,67 @@ export function getLinks() {
 }
 
 export default function Header() {
+  const router = useLocation();
+
   useEffect(() => {
-    document.getElementById("check-user").innerText = checkingExpiryDate()
-      ? "Кабінет"
-      : "Увійти";
-    getLinks();
+    if (!router.pathname.includes("markiv-team")) {
+      document.getElementById("check-user").innerText = checkingExpiryDate()
+        ? "Кабінет"
+        : "Увійти";
+      getLinks();
+    }
   }, []);
   return (
-    <Block collapseOnSelect expand="lg">
-      <div className="d-flex align-items-center justify-content-between">
-        <Navbar.Brand>
-          <img src={logo} alt="logo" />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav">
-          <span></span>
-          <span></span>
-          <span></span>
-        </Navbar.Toggle>
-      </div>
-      <Navbar.Collapse className="" id="responsive-navbar-nav">
-        <Nav className="me-auto items-bar">
-          <Link
-            id={"link-bus-table"}
-            className="item-link"
-            to={checkingExpiryDate() === true ? "/buses-table" : "/sign-in"}
-          >
-            Табло Автобусів
-          </Link>
-          <Link
-            id={"link-routes"}
-            className="item-link"
-            to={checkingExpiryDate() === true ? "/routes" : "/sign-in"}
-          >
-            Маршрути
-          </Link>
-          <Link className="item-link" to={"/contacts"}>
-            Контакти
-          </Link>
-          <Link className="item-link" to={"/about-us"}>
-            Про нас
-          </Link>
-          <Link
-            id={"link-check-user"}
-            to={checkingExpiryDate() === true ? "/user" : "/sign-in"}
-          >
-            <Btn id={"check-user"}></Btn>
-          </Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Block>
+    <>
+      {router.pathname.includes("markiv-team") ? (
+        <></>
+      ) : (
+        <Block collapseOnSelect expand="lg">
+          <div className="d-flex align-items-center justify-content-between">
+            <Navbar.Brand>
+              <Link to={"/"}>
+                <img src={logo} alt="logo" />
+              </Link>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav">
+              <span></span>
+              <span></span>
+              <span></span>
+            </Navbar.Toggle>
+          </div>
+          <Navbar.Collapse className="" id="responsive-navbar-nav">
+            <Nav className="me-auto items-bar">
+              <Link
+                id={"link-bus-table"}
+                className="item-link"
+                to={checkingExpiryDate() === true ? "/buses-table" : "/sign-in"}
+              >
+                Табло Автобусів
+              </Link>
+              <Link
+                id={"link-routes"}
+                className="item-link"
+                to={checkingExpiryDate() === true ? "/routes" : "/sign-in"}
+              >
+                Маршрути
+              </Link>
+              <Link className="item-link" to={"/contacts"}>
+                Контакти
+              </Link>
+              <Link className="item-link" to={"/about-us"}>
+                Про нас
+              </Link>
+              <Link
+                id={"link-check-user"}
+                to={checkingExpiryDate() === true ? "/user" : "/sign-in"}
+              >
+                <Btn id={"check-user"}></Btn>
+              </Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Block>
+      )}
+    </>
   );
 }
 

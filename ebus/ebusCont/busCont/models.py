@@ -59,8 +59,7 @@ class Ticket(models.Model):
 @receiver(post_save, sender=BusTrip)
 def create_free_seats(sender, instance, created, **kwargs):
     if created:
-        # Automatically create SeatN instances for available seats
-        for seat_number in range(1, instance.seats + 1):
+        for seat_number in range(0, instance.seats):
             seat_instance = SeatN.objects.create(bus_table=instance, seat_number=seat_number)
             instance.freeSeats.add(seat_instance)
 

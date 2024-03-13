@@ -3,23 +3,59 @@ import styled from "styled-components";
 import DatePicker, { registerLocale } from "react-datepicker";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { uk } from "date-fns/locale/uk";
 import { dropdownValues } from "../utils/data";
+import { useNavigate } from "react-router-dom";
+import { validateSearch } from "./validation";
+import { Toast } from "react-bootstrap";
+import "../style/modal-styles.css";
 registerLocale("uk", uk);
 
 const animatedComponents = makeAnimated();
 
-export default function SearchBlock() {
-  const [date, setDate] = useState(new Date());
-
+export default function SearchBlock({ data }) {
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const [date, setDate] = useState(
+    data === undefined ? new Date() : new Date(data.date)
+  );
+  const [from, setFrom] = useState(data === undefined ? "" : data.from);
+  const [to, setTo] = useState(data === undefined ? "" : data.to);
+  const [person, setPerson] = useState(
+    data === undefined ? { value: 1, label: 1 } : data.person
+  );
+  let array = [];
   function handleFocus(e) {
-    e.preventDefault();
-    console.log(e);
     e.target.parentElement.style.boxShadow = `0 0 2px 4px ${mainGreen}`;
   }
   function handleBlur(e) {
     e.target.parentElement.style.boxShadow = `none`;
+  }
+
+  function checkFreeSeats() {
+    fetch(
+      `http://127.0.0.1:8000/ebuscont/api/triprace?bus_table__fromWhere=${from}&bus_table__toWhere=${to}&date=${date
+        .toISOString()
+        .slice(0, 10)}`
+    )
+      .then((response) => response.json())
+      .then((data) =>
+        data.map((item) => {
+          if (item.freeSeats.length >= person.value) {
+            array.push({
+              id: item.id,
+              departureTime: item.timeFrom,
+              from: "string",
+              to: "string",
+              arrivalTime: item.timeTo,
+              price: "50",
+              date: item.date,
+            });
+          }
+        })
+      );
+    return array.length === 0 ? false : true;
   }
 
   return (
@@ -28,15 +64,30 @@ export default function SearchBlock() {
         <i className="fa-solid fa-location-dot"></i>
         <input
           placeholder="Звідки"
+          value={from}
+          onChange={(e) => setFrom(e.target.value)}
           onFocus={(e) => handleFocus(e)}
           onBlur={(e) => handleBlur(e)}
         />
-        <i className="fa-solid fa-arrow-right-arrow-left"></i>
+        <i
+          className="fa-solid fa-arrow-right-arrow-left"
+          onClick={(e) => {
+            e.target.classList.add("fa-flip");
+            let fromLet = from;
+            setFrom(to);
+            setTo(fromLet);
+            setTimeout(() => {
+              e.target.classList.remove("fa-flip");
+            }, 800);
+          }}
+        ></i>
       </InputSpan>
       <InputSpan className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-9 d-flex align-items-center justify-content-between">
         <i className="fa-solid fa-location-dot"></i>
         <input
           placeholder="Куди"
+          value={to}
+          onChange={(e) => setTo(e.target.value)}
           onFocus={(e) => handleFocus(e)}
           onBlur={(e) => handleBlur(e)}
         />
@@ -50,13 +101,14 @@ export default function SearchBlock() {
           e.target.parentElement.parentElement.parentElement.style.boxShadow = `none`;
         }}
         className="col-xl-3 col-lg-3 col-md-5 col-sm-9 col-9 d-flex align-items-center justify-content-start"
-      > 
+      >
         <i
           className="fa-regular fa-calendar-days"
           style={{ color: `${mainGreen}` }}
         ></i>
 
         <DatePicker
+          className="px-2"
           selected={date}
           onChange={(date) => {
             setDate(date);
@@ -83,9 +135,11 @@ export default function SearchBlock() {
             }}
             closeMenuOnSelect={true}
             components={animatedComponents}
-            defaultValue={1}
+            defaultValue={"1"}
             options={dropdownValues}
             placeholder={"1"}
+            value={person}
+            onChange={(e) => setPerson(e)}
             styles={{
               control: (base) => ({
                 ...base,
@@ -96,7 +150,6 @@ export default function SearchBlock() {
             }}
             theme={(theme) => ({
               ...theme,
-
               colors: {
                 ...theme.colors,
                 primary25: lightGreen,
@@ -106,9 +159,62 @@ export default function SearchBlock() {
           />
         </span>
       </DropdownSpan>
-      <SearchBtn className="col-xl-2 col-lg-2 col-md-5 col-sm-9 col-9">
+      <SearchBtn
+        className="col-xl-2 col-lg-2 col-md-5 col-sm-9 col-9"
+        onClick={() => {
+          if (validateSearch(from, to, date, person)) {
+            if (checkFreeSeats()) {
+              console.log(array);
+              navigate("/buses-table/search-result", {
+                state: {
+                  search: {
+                    from: from,
+                    to: to,
+                    date: date,
+                    person: person,
+                  }
+                },
+              });
+              document.location.reload()
+            } else {
+              setShow(true);
+               setTimeout(() => {
+                setShow(false);
+              }, 2800);
+            }
+          } else {
+            setShow(true);
+            setTimeout(() => {
+              setShow(false);
+            }, 2800);
+          }
+        }}
+      >
         Знайти
       </SearchBtn>
+      <Toast
+        className={""}
+        onClose={() => setShow(false)}
+        show={show}
+        // delay={3000}
+        // autohide
+      >
+        {/*  */}
+        <Toast.Header>
+          {/* <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" /> */}
+          <i
+            className="fa-solid fa-circle-exclamation fa-xl"
+            style={{ color: "red" }}
+          ></i>
+          <p className="px-1 m-0 me-auto">Сповіщення</p>
+          {/* <small>11 mins ago</small> */}
+        </Toast.Header>
+        <Toast.Body className="p-2 d-flex align-items-center">
+          <p className="m-0 px-2" id="toast-text" style={{ fontSize: "1.2em" }}>
+            {checkFreeSeats() ? "Кількість місць, яку ви ввели, недоступні для бронювання." : "Заповніть всі поля для коректного пошуку рейсів."}
+          </p>
+        </Toast.Body>
+      </Toast>
     </div>
   );
 }

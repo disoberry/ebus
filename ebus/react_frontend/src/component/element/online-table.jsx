@@ -82,7 +82,7 @@ export default function OnlineTable() {
                   "--bs-table-bg": item.id % 2 === 0 ? "#F1F1F1" : "#E4E4E4",
                 }}
               >
-                <td>{item.timeFrom}</td>
+                <td>{item.timeFrom?.slice(0,5)}</td>
                 <td>
                   {item.bus_table === ""
                     ? ``
@@ -90,7 +90,7 @@ export default function OnlineTable() {
                         getBusById(item.bus_table).toWhere
                       }`}
                 </td>
-                <td>{item.timeTo}</td>
+                <td>{item.timeTo?.slice(0,5)}</td>
                 <td>{getBusById(item.bus_table).platform}</td>
                 <td
                   style={{
@@ -126,7 +126,7 @@ export default function OnlineTable() {
                           }
                     }
                   >
-                    Замовити квиток
+                    Замовити
                   </button>
                 </td>
               </tr>
