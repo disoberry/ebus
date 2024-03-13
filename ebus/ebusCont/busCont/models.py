@@ -63,8 +63,15 @@ def create_free_seats(sender, instance, created, **kwargs):
             seat_instance = SeatN.objects.create(bus_table=instance, seat_number=seat_number)
             instance.freeSeats.add(seat_instance)
 
-# class SeatN(models.Model):
-#     bus_race = models.ForeignKey(BusTrip, on_delete=models.CASCADE)
+
+@receiver(post_save, sender=Ticket)
+def update_ticket_status(sender, instance, created, **kwargs):
+    if created:
+        numbers_list = instance.trip_race_ticket.freeSeats
+        number_to_remove = instance.seat_number
+        if numbers_list.remove(number_to_remove):
+            instance.save()
+
 
 class SeatN(models.Model):
     bus_table = models.ForeignKey(BusTrip, on_delete=models.CASCADE)
