@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b18cb773-e087-443e-8128-8874deab7f7d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/busCont/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/busCont/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pyvenv.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/../pyvenv.cfg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +80,7 @@
       <workItem from="1709069906913" duration="1356000" />
       <workItem from="1709878146236" duration="254000" />
       <workItem from="1710353845540" duration="813000" />
-      <workItem from="1710363022537" duration="3125000" />
+      <workItem from="1710363022537" duration="3245000" />
     </task>
     <servers />
   </component>
