@@ -108,7 +108,7 @@ export default function SearchBlock({ data }) {
         ></i>
 
         <DatePicker
-          className="px-2"
+          className="px-1"
           selected={date}
           onChange={(date) => {
             setDate(date);

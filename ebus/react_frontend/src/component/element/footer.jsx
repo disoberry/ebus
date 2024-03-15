@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { backgroundGrey, darkGrey, lightGreen } from "../utils/utills";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function getDate() {
   const today = new Date();
@@ -27,18 +27,29 @@ export default function Footer() {
           >
             <div className="col-xl-3 col-lg-4 col-12 my-2">
               <h5>Про компанію</h5>
-              <p>Про нас</p>
-              <p>Контакти</p>
+              <p>
+                <Link to={"/about-us"}>Про нас</Link>
+              </p>
+              <p>
+                <Link to={"/contacts"}>Контакти</Link>
+              </p>
             </div>
             <div className="col-xl-3 col-lg-4 col-12 my-2">
               <h5>Користувачам</h5>
               <p>Питання і відповіді</p>
-              <p>Розташування</p>
+
+              <p>
+                <Link to={"/contacts"}>Розташування</Link>
+              </p>
             </div>
             <div className="col-xl-3 col-lg-4 col-12 my-2">
               <h5>Наші партнери</h5>
-              <p>MaRKIV</p>
-              <p>НУВГП</p>
+              <p>
+                <Link to={"/markiv-team"}>MaRKIV</Link>
+              </p>
+              <p>
+                <Link to={"https://nuwm.edu.ua/university"}>НУВГП</Link>
+              </p>
             </div>
           </div>
 
@@ -61,13 +72,17 @@ const FooterBlock = styled.div`
     padding: 1.5em 3em;
     div {
       p:hover,
+      a:hover,
       h5:hover {
         cursor: pointer;
         color: #000;
       }
       color: ${darkGrey};
+      a,
       p {
+        color: ${darkGrey};
         font-size: 1em;
+        text-decoration: none;
         margin: 0.5em 0;
       }
       h5 {

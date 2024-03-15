@@ -50,6 +50,49 @@ export default function TicketRegistration() {
     setRace(state.race);
   }, []);
 
+  console.log(bus);
+  console.log(race);
+
+  function setData() {
+    let status = 0;
+    fetch("http://127.0.0.1:8000/ebuscont/api/ticket", {
+      method: "POST",
+      headers: {
+        Accept: "\napplication/json",
+        Authorization: "YOUR_TOKEN",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        trip_race_ticket: race.id,
+        seat_number: 1,
+        ticket_owner: JSON.parse(localStorage.getItem("user")).user.id,
+        ticket_status: false,
+      }),
+    })
+      .then((response) => {
+        const data = response.json();
+        status = response.status;
+        return data;
+      })
+      .then((data) => {
+        console.log(data);
+        // if (status === 200) {
+        //   console.log(data);
+        // } else if (
+        //   data.email[0] === "custom user m with this email already exists."
+        // ) {
+        //   emailRef.current = "";
+        //   passwordRef.current = "";
+        //   confirmPasswordRef.current = "";
+        //   setError("Користувач з такою електронною поштою вже існує.");
+        //   setShow(true);
+        // } else {
+        //   setError("Помилка");
+        //   setShow(true);
+        // }
+      });
+  }
+
   return (
     <Block className="w-100 d-flex flex-column align-items-center">
       <h3 className="my-xl-3">Оберіть своє місце</h3>
@@ -57,7 +100,9 @@ export default function TicketRegistration() {
         <div className="info-div d-flex flex-column justify-content-between pt-4">
           <span className="d-flex align-items-center pb-2">
             <i className="fa-solid fa-route fa-2xl"></i>
-            <h4 className="m-0 px-3">{bus.fromWhere} – {bus.toWhere}</h4>
+            <h4 className="m-0 px-3">
+              {bus.fromWhere} – {bus.toWhere}
+            </h4>
           </span>
           <span className="d-flex justify-content-between align-items-center">
             <p className="my-0">Рейс - {race.id}</p>
@@ -96,21 +141,23 @@ export default function TicketRegistration() {
             ? (e.currentTarget.style.cursor = "not-allowed")
             : (e.currentTarget.style.cursor = "pointer");
         }}
+
         onClick={() => {
           if (res.length === 0) {
             setShow(true);
             setTimeout(() => {
               setShow(false);
-            }, 1500);
+            }, 2000);
           } else {
             console.log(res);
-            navigate("/ready-ticket", {
-              state: {
-                seats: res,
-                bus: bus,
-                race: race,
-              },
-            });
+            setData();
+            // navigate("/ready-ticket", {
+            //   state: {
+            //     seats: res,
+            //     bus: bus,
+            //     race: race,
+            //   },
+            // });
           }
         }}
       >
@@ -127,14 +174,14 @@ export default function TicketRegistration() {
         {/*  */}
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <p className="m-0 me-auto">Сповіщення</p>
-          {/* <small>11 mins ago</small> */}
-        </Toast.Header>
-        <Toast.Body className="p-2 d-flex align-items-center">
           <i
             className="fa-solid fa-circle-exclamation fa-xl"
             style={{ color: "red" }}
           ></i>
+          <p className="px-1 m-0 me-auto">Сповіщення</p>
+          {/* <small>11 mins ago</small> */}
+        </Toast.Header>
+        <Toast.Body className="p-2 d-flex align-items-center">
           <p className="m-0 px-2" style={{ fontSize: "1.2em" }}>
             Виберіть хоча б одне місце, щоб продовжити.
           </p>
