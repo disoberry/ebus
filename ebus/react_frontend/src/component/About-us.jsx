@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { advantages, partners, services } from "./utils/data";
 
 export default function AboutUs() {
-
   return (
     <Block className="d-flex flex-column align-items-center">
       <img src={background} alt="background" className="w-100" />
@@ -24,7 +23,9 @@ export default function AboutUs() {
       <OurPartnersDiv className="w-100 row align-items-center justify-content-center">
         <div className="col-9 d-flex flex-column align-items-center">
           <span className="row title-partner-div d-flex align-items-center justify-content-between justify-content-md-center">
-            <h3 className="col-xl-2 col-lg-3 col-md-9 col-xs-10">Наші Партнери</h3>
+            <h3 className="col-xl-2 col-lg-3 col-md-9 col-xs-10">
+              Наші Партнери
+            </h3>
             <p className="col-xl-9 col-lg-9 col-md-9 col-xs-10 m-0">
               Разом ми будуємо міцні зв'язки, сприяємо інноваціям та досягаємо
               великих результатів. Це спільний шлях до успіху, на якому кожен
@@ -32,22 +33,33 @@ export default function AboutUs() {
             </p>
           </span>
           <div className="row w-100 align-items-start justify-content-around">
-            {partners.map((item)=> (
-            <PartnerCard className="p-0 col-xl-5 col-lg-8 col-md-9 col-xs-10 col-12 d-flex flex-column justify-content-between">
-              <span className="row d-flex align-items-center justify-content-center">
-                <img className="col-xl-5 col-lg-5 col-md-5 col-xs-8 col-7" src={item.logo} alt={item.shortName} />
-                <p className="col-xl-6 col-lg-6 col-md-6 col-xs-11 col-11">
-                  {item.name}
-                </p>
-              </span>
-              <Link to={item.link} className=""><button className="w-100">{item.shortName}</button></Link>
-            </PartnerCard>
-            ))}            
+            {partners.map((item) => (
+              <PartnerCard
+                key={partners.indexOf(item)}
+                className="p-0 col-xl-5 col-lg-8 col-md-9 col-xs-10 col-12 d-flex flex-column justify-content-between"
+              >
+                <span className="row d-flex align-items-center justify-content-center">
+                  <img
+                    className="col-xl-5 col-lg-5 col-md-5 col-xs-8 col-7"
+                    src={item.logo}
+                    alt={item.shortName}
+                  />
+                  <p className="col-xl-6 col-lg-6 col-md-6 col-xs-11 col-11">
+                    {item.name}
+                  </p>
+                </span>
+                <Link to={item.link} className="">
+                  <button className="w-100">{item.shortName}</button>
+                </Link>
+              </PartnerCard>
+            ))}
           </div>
         </div>
       </OurPartnersDiv>
       <ServicesDiv className="d-flex flex-column align-items-center">
-        <h5 className="mb-3 text-center">Доступні послуги Автовокзалу “Андріївський”</h5>
+        <h5 className="mb-3 text-center">
+          Доступні послуги Автовокзалу “Андріївський”
+        </h5>
         <div className="d-flex flex-wrap w-75 justify-content-between">
           {services.map((item) => (
             <div key={services.indexOf(item)}>
@@ -68,7 +80,7 @@ const PartnerCard = styled.div`
   /* height: 320px; */
   /* width: 40% !important; */
   margin: 1.5em 0.5em;
-  
+
   span {
     padding: 1.5em;
   }
@@ -142,7 +154,7 @@ const ServicesDiv = styled.div`
 
 const AdvantsDiv = styled.div`
   width: 80%;
- padding-bottom: 2em;
+  padding-bottom: 2em;
   div {
     padding: 0.6em 0;
     span {

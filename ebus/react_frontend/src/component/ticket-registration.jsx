@@ -20,6 +20,10 @@ export default function TicketRegistration() {
   const [bus, setBus] = useState({});
   const [race, setRace] = useState({});
   const [show, setShow] = useState(false);
+  const [statusRes, setStatusRes] = useState(0);
+  const [errorToastMessage, setError] = useState(
+    "Виберіть хоча б одне місце, щоб продовжити."
+  );
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -53,7 +57,7 @@ export default function TicketRegistration() {
   console.log(bus);
   console.log(race);
 
-  function setData() {
+  function setData(seat_number) {
     let status = 0;
     fetch("http://127.0.0.1:8000/ebuscont/api/ticket", {
       method: "POST",
@@ -64,7 +68,7 @@ export default function TicketRegistration() {
       },
       body: JSON.stringify({
         trip_race_ticket: race.id,
-        seat_number: 1,
+        seat_number: seat_number,
         ticket_owner: JSON.parse(localStorage.getItem("user")).user.id,
         ticket_status: false,
       }),
@@ -75,21 +79,12 @@ export default function TicketRegistration() {
         return data;
       })
       .then((data) => {
-        console.log(data);
-        // if (status === 200) {
-        //   console.log(data);
-        // } else if (
-        //   data.email[0] === "custom user m with this email already exists."
-        // ) {
-        //   emailRef.current = "";
-        //   passwordRef.current = "";
-        //   confirmPasswordRef.current = "";
-        //   setError("Користувач з такою електронною поштою вже існує.");
-        //   setShow(true);
-        // } else {
-        //   setError("Помилка");
-        //   setShow(true);
-        // }
+        if (status === 200 || status === 201) {
+          console.log(data);
+        } else {
+          setError("Помилка");
+          setShow(true);
+        }
       });
   }
 
@@ -141,7 +136,6 @@ export default function TicketRegistration() {
             ? (e.currentTarget.style.cursor = "not-allowed")
             : (e.currentTarget.style.cursor = "pointer");
         }}
-
         onClick={() => {
           if (res.length === 0) {
             setShow(true);
@@ -150,14 +144,14 @@ export default function TicketRegistration() {
             }, 2000);
           } else {
             console.log(res);
-            setData();
-            // navigate("/ready-ticket", {
-            //   state: {
-            //     seats: res,
-            //     bus: bus,
-            //     race: race,
-            //   },
-            // });
+            res.map((seat) => setData(seat));
+            navigate("/ready-ticket", {
+              state: {
+                seats: res,
+                bus: bus,
+                race: race,
+              },
+            });
           }
         }}
       >
@@ -183,7 +177,7 @@ export default function TicketRegistration() {
         </Toast.Header>
         <Toast.Body className="p-2 d-flex align-items-center">
           <p className="m-0 px-2" style={{ fontSize: "1.2em" }}>
-            Виберіть хоча б одне місце, щоб продовжити.
+            {errorToastMessage}
           </p>
         </Toast.Body>
       </Toast>

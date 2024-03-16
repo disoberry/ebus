@@ -24,7 +24,6 @@ export default function ReadyTicket() {
               race={state.race}
               bus={state.bus}
               seat={seat}
-              status={"Не активований"}
             />
           ))}
         </div>

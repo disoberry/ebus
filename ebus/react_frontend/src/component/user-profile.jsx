@@ -5,7 +5,6 @@ import {
   darkGreen,
   darkGrey,
   lightGreen,
-  
   mainGreen,
 } from "./utils/utills";
 import user_img from "../images/user-profile.png";
@@ -14,14 +13,39 @@ import quote_2 from "../images/quote 2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TicketCard from "./element/ticket-card";
-import free_icon_bus from '../images/free-icon-bus.png'
+import free_icon_bus from "../images/free-icon-bus.png";
 import { Toast } from "react-bootstrap";
 import "./style/modal-styles.css";
 import { getLinks } from "./element/header";
 
 export default function UserProfile({ link }) {
   const [displayed, setDisplayed] = useState(false);
+  const [listTickets, setTickets] = useState([]);
+  const [racelist, setRaceList] = useState([]);
+  const [listBus, setBusList] = useState([]);
+  const [raceTest, setRace] = useState({});
   const navigate = useNavigate();
+
+  let raceOfBus;
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    fetch(
+      `http://127.0.0.1:8000/ebuscont/api/ticket?ticket_owner__email=${
+        JSON.parse(localStorage.getItem("user")).user.email
+      }`
+    )
+      .then((response) => response.json())
+      .then((data) => setTickets(data));
+    fetch("http://127.0.0.1:8000/ebuscont/api/triprace")
+      .then((response) => response.json())
+      .then((data) => setRaceList(data));
+    fetch("http://127.0.0.1:8000/ebuscont/api/")
+      .then((response) => response.json())
+      .then((data) => setBusList(data));
+
+    getLinks();
+    normalizeTabs(link);
+  }, [link]);
 
   function normalizeTabs(link_) {
     const profile_tab = document.getElementById("user-tab");
@@ -43,13 +67,56 @@ export default function UserProfile({ link }) {
       tickets_div.classList.add("active");
       user_div.classList.remove("show");
       user_div.classList.remove("active");
+
+      listTickets.length === 0 &&
+        (document.getElementById("ticket-result").innerHTML = `<div
+        class="w-100 d-flex flex-column align-items-center justify-content-center"
+        style={{ height: "60vh" }}
+      >
+        <img src=${free_icon_bus} alt="icon bus" />
+        <p class="m-0 text-center">
+          У Вас поки що немає придбаних квитків.
+        </p>
+      </div>`);
     }
   }
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    getLinks();
-    normalizeTabs(link);
-  }, [link]);
+
+  function getRaceById(race_id) {
+    let raceItem;
+    racelist.forEach((race) => {
+      if (race.id === race_id) {
+        raceItem = race;
+        return race;
+      }
+    });
+    return raceItem;
+  }
+
+  function getBusById(bus_id) {
+    let busItem;
+    listBus.forEach((bus) => {
+      if (bus.id === bus_id) {
+        busItem = bus;
+        return bus;
+      }
+    });
+    return busItem;
+  }
+
+  function generationDiv() {
+    const reverse = [...listTickets].reverse();
+    let arrres = reverse.map((ticket) => {
+      return (
+        <TicketCard
+          key={reverse.indexOf(ticket)}
+          race={getRaceById(ticket.trip_race_ticket)}
+          bus={getBusById(getRaceById(ticket.trip_race_ticket)?.bus_table)}
+          seat={ticket.seat_number}
+        />
+      );
+    });
+    return arrres;
+  }
 
   return (
     <Block className="row m-0 w-100 justify-content-center">
@@ -128,8 +195,7 @@ export default function UserProfile({ link }) {
                       document.getElementById("check-user").innerText =
                         "Увійти";
                       navigate("/");
-            window.location.reload()
-
+                      window.location.reload();
                     }, 1000);
                   }}
                 >
@@ -145,26 +211,11 @@ export default function UserProfile({ link }) {
             role="tabpanel"
             aria-labelledby="tickets-tab"
           >
-            {/* if user doesnt have tickets */}
             <div
-              className="w-100 d-flex flex-column align-items-center justify-content-center"
-              style={{ height: "60vh" }}
+              id="ticket-result"
+              className="w-100 d-flex flex-column align-items-center justify-content-center py-4"
             >
-              <img src={free_icon_bus} alt="icon bus" />
-              <p className="m-0 text-center">
-                У Вас поки що немає придбаних квитків.
-              </p>
-            </div>
-            <div className="w-100 py-4">
-              {/* <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
-                <TicketCard  status={"Не активований"} />
-              </div>
-              <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
-                <TicketCard status={"Не дійсний"} />
-              </div>
-              <div className="row w-100 m-0 mb-2 justify-content-center align-items-center">
-                <TicketCard status={"Не дійсний"} />
-              </div> */}
+              {listTickets.length !== 0 ? generationDiv() : ""}
             </div>
             <span className="d-flex align-items-center pt-3">
               <i
@@ -184,18 +235,11 @@ export default function UserProfile({ link }) {
           </TicketsTab>
         </div>
       </div>
-      <Toast
-        className={""}
-        onClose={() => setShow(false)}
-        show={show}
-        // delay={3000}
-        // autohide
-      >
+      <Toast className={""} onClose={() => setShow(false)} show={show}>
         {/*  */}
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
           <p className="m-0 me-auto">Сповіщення</p>
-          {/* <small>11 mins ago</small> */}
         </Toast.Header>
         <Toast.Body className="p-2 d-flex align-items-center">
           <i
